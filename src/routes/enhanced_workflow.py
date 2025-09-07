@@ -321,7 +321,7 @@ def start_step3_generation():
 
                 try:
                     modules_result = loop.run_until_complete(
-                        enhanced_module_processor.generate_all_modules(session_id)
+                        enhanced_module_processor.process_all_modules_from_massive_data(massive_data=massive_data, context=context, session_id=session_id)
                     )
                 finally:
                     loop.close()
@@ -464,7 +464,7 @@ def execute_complete_workflow():
                     logger.info("📝 Executando Etapa 3: Geração de módulos")
 
                     modules_result = loop.run_until_complete(
-                        enhanced_module_processor.generate_all_modules(session_id)
+                        enhanced_module_processor.process_all_modules_from_massive_data(massive_data=massive_data, context=context, session_id=session_id)
                     )
 
                     # Compila relatório final
