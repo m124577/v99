@@ -79,6 +79,168 @@
             margin-bottom: 3rem;
         }
         
+        .tabs-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .tabs-nav {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .tab-button {
+            padding: 1rem 1.5rem;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-weight: 600;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .tab-button.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .api-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .api-service-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .api-service-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            text-transform: uppercase;
+        }
+        
+        .api-key-input {
+            width: 100%;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .api-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .status-active { background: var(--success-color); }
+        .status-error { background: var(--error-color); }
+        .status-rate-limited { background: var(--warning-color); }
+        .status-offline { background: #6b7280; }
+        
+        .progress-controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .control-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            min-width: 120px;
+            justify-content: center;
+        }
+        
+        .btn-pause {
+            background: var(--warning-color);
+            color: white;
+        }
+        
+        .btn-save {
+            background: var(--info-color);
+            color: white;
+        }
+        
+        .btn-resume {
+            background: var(--success-color);
+            color: white;
+        }
+        
+        .btn-stop {
+            background: var(--error-color);
+            color: white;
+        }
+        
+        .control-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        
+        .control-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .current-api-display {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .api-rotation-status {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .current-api-name {
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
         .step-card {
             background: rgba(255, 255, 255, 0.05);
             border-radius: 20px;
@@ -642,6 +804,94 @@
                               placeholder="Informações adicionais relevantes para a análise..."></textarea>
                 </div>
             </form>
+        </div>
+
+        <!-- Tabs Container -->
+        <div class="tabs-container">
+            <div class="tabs-nav">
+              <button class="tab-button active" data-tab="workflow">
+                    <i class="fas fa-play"></i> Workflow
+                </button>
+              <button class="tab-button" data-tab="apis">
+                    <i class="fas fa-key"></i> APIs
+                </button>
+               <button class="tab-button" data-tab="progress">                    <i class="fas fa-tasks"></i> Progresso
+                </button>
+            </div>
+
+            <!-- Workflow Tab -->
+            <div id="workflow-tab" class="tab-content active">
+                <!-- Progress Controls -->
+                <div class="progress-controls">
+                    <button class="control-btn btn-pause" id="pauseBtn" onclick="pauseExecution()" disabled>
+                        <i class="fas fa-pause"></i> Pausar
+                    </button>
+                    <button class="control-btn btn-save" id="saveBtn" onclick="saveProgress()" disabled>
+                        <i class="fas fa-save"></i> Salvar
+                    </button>
+                    <button class="control-btn btn-resume" id="resumeBtn" onclick="resumeExecution()" disabled>
+                        <i class="fas fa-play"></i> Continuar
+                    </button>
+                    <button class="control-btn btn-stop" id="stopBtn" onclick="stopExecution()" disabled>
+                        <i class="fas fa-stop"></i> Parar
+                    </button>
+                </div>
+
+                <!-- Current API Display -->
+                <div class="current-api-display" id="currentApiDisplay" style="display: none;">
+                    <div class="api-rotation-status">API Atual em Uso:</div>
+                    <div class="current-api-name" id="currentApiName">-</div>
+                </div>
+            </div>
+
+            <!-- APIs Tab -->
+            <div id="apis-tab" class="tab-content">
+                <h4><i class="fas fa-cogs"></i> Gerenciamento de APIs</h4>
+                <p>Configure e monitore suas chaves de API em tempo real</p>
+                
+                <div class="api-grid" id="apiGrid">
+                    <!-- APIs serão carregadas dinamicamente -->
+                </div>
+                
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="refreshApiStatus()">
+                        <i class="fas fa-sync"></i> Atualizar Status
+                    </button>
+                    <button class="btn btn-secondary" onclick="resetApiErrors()">
+                        <i class="fas fa-redo"></i> Resetar Erros
+                    </button>
+                </div>
+            </div>
+
+            <!-- Progress Tab -->
+            <div id="progress-tab" class="tab-content">
+                <h4><i class="fas fa-chart-line"></i> Controle de Progresso</h4>
+                <p>Monitore e controle o progresso das execuções</p>
+                
+                <div id="progressInfo" style="display: none;">
+                    <div class="progress-section">
+                        <div class="progress-header">
+                            <div class="progress-title">
+                                <i class="fas fa-cogs fa-spin"></i>
+                                <span id="currentSessionTitle">Sessão Atual</span>
+                            </div>
+                            <div class="progress-percentage" id="currentProgressPercentage">0%</div>
+                        </div>
+                        
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" id="currentProgressBar"></div>
+                        </div>
+                        
+                        <div class="progress-status" id="currentProgressStatus">
+                            Aguardando início...
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="checkpointsList">
+                    <!-- Checkpoints serão listados aqui -->
+                </div>
+            </div>
         </div>
 
         <!-- Workflow Steps -->
@@ -1300,7 +1550,434 @@
             `;
         }
         
-        function switchTab(tabName) {
+        function switchTab(tabName, element) {
+            // Remove active de todos os botões
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Remove active de todos os conteúdos
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Ativa o botão clicado
+            if (element) {
+                element.classList.add('active');
+            } else {
+                // Fallback se o elemento não for passado (ex: chamada programática)
+                const targetButton = document.querySelector(`.tab-button[onclick*="'${tabName}'"]`);
+                if (targetButton) {
+                    targetButton.classList.add('active');
+                }
+            }
+            
+            // Ativa o conteúdo da aba
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+        
+        // Funções de controle de progresso
+        async function pauseExecution() {
+            if (!currentSessionId) {
+                showNotification('Nenhuma execução ativa', 'warning');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/progress/pause', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ session_id: currentSessionId })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showNotification('Execução pausada', 'success');
+                    updateControlButtons('paused');
+                } else {
+                    showNotification(result.error, 'error');
+                }
+            } catch (error) {
+                console.error('Erro ao pausar:', error);
+                showNotification('Erro ao pausar execução', 'error');
+            }
+        }
+        
+        async function resumeExecution() {
+            if (!currentSessionId) {
+                showNotification('Nenhuma execução ativa', 'warning');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/progress/resume', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ session_id: currentSessionId })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showNotification('Execução resumida', 'success');
+                    updateControlButtons('running');
+                } else {
+                    showNotification(result.error, 'error');
+                }
+            } catch (error) {
+                console.error('Erro ao resumir:', error);
+                showNotification('Erro ao resumir execução', 'error');
+            }
+        }
+        
+        async function saveProgress() {
+            if (!currentSessionId) {
+                showNotification('Nenhuma execução ativa', 'warning');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/progress/save', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        session_id: currentSessionId,
+                        current_step: 'manual_save',
+                        step_index: currentStep || 0,
+                        state_data: { saved_at: new Date().toISOString() }
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showNotification('Progresso salvo', 'success');
+                    loadCheckpoints();
+                } else {
+                    showNotification(result.error, 'error');
+                }
+            } catch (error) {
+                console.error('Erro ao salvar:', error);
+                showNotification('Erro ao salvar progresso', 'error');
+            }
+        }
+        
+        async function stopExecution() {
+            if (!currentSessionId) {
+                showNotification('Nenhuma execução ativa', 'warning');
+                return;
+            }
+            
+            if (confirm('Tem certeza que deseja parar a execução?')) {
+                try {
+                    // Implementar parada da execução
+                    currentSessionId = null;
+                    updateControlButtons('stopped');
+                    showNotification('Execução interrompida', 'info');
+                } catch (error) {
+                    console.error('Erro ao parar:', error);
+                    showNotification('Erro ao parar execução', 'error');
+                }
+            }
+        }
+        
+        function updateControlButtons(state) {
+            const pauseBtn = document.getElementById('pauseBtn');
+            const resumeBtn = document.getElementById('resumeBtn');
+            const saveBtn = document.getElementById('saveBtn');
+            const stopBtn = document.getElementById('stopBtn');
+            
+            // Reset all buttons
+            [pauseBtn, resumeBtn, saveBtn, stopBtn].forEach(btn => {
+                btn.disabled = true;
+            });
+            
+            switch (state) {
+                case 'running':
+                    pauseBtn.disabled = false;
+                    saveBtn.disabled = false;
+                    stopBtn.disabled = false;
+                    break;
+                case 'paused':
+                    resumeBtn.disabled = false;
+                    saveBtn.disabled = false;
+                    stopBtn.disabled = false;
+                    break;
+                case 'stopped':
+                    // Todos ficam desabilitados
+                    break;
+            }
+        }
+        
+        // Funções de gerenciamento de APIs
+        async function loadApiStatus() {
+            try {
+                const response = await fetch('/api/apis/status');
+                const result = await response.json();
+                
+                if (result.success) {
+                    displayApiStatus(result.status);
+                }
+            } catch (error) {
+                console.error('Erro ao carregar status das APIs:', error);
+            }
+        }
+        
+        function displayApiStatus(apiStatus) {
+            const apiGrid = document.getElementById('apiGrid');
+            apiGrid.innerHTML = '';
+            
+            const services = ['openai', 'gemini', 'groq', 'jina', 'exa', 'serper', 'firecrawl', 'supadata'];
+            
+            services.forEach(service => {
+                const serviceData = apiStatus[service] || { apis: [] };
+                const card = createApiServiceCard(service, serviceData);
+                apiGrid.appendChild(card);
+            });
+        }
+        
+        function createApiServiceCard(service, serviceData) {
+            const card = document.createElement('div');
+            card.className = 'api-service-card';
+            
+            const currentApi = serviceData.apis[serviceData.current_api_index] || {};
+            const statusClass = getStatusClass(currentApi.status);
+            
+            card.innerHTML = `
+                <div class="api-service-title">${service.toUpperCase()}</div>
+                
+                <div class="api-status">
+                    <div class="status-indicator ${statusClass}"></div>
+                    <span>${currentApi.status || 'Não configurado'}</span>
+                </div>
+                
+                <input type="password" class="api-key-input" 
+                       placeholder="Chave da API ${service.toUpperCase()}"
+                       id="${service}-key">
+                
+                <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                    <button class="btn btn-primary" style="flex: 1; font-size: 0.8rem;" 
+                            onclick="updateApiKey('${service}')">
+                        <i class="fas fa-save"></i> Salvar
+                    </button>
+                    <button class="btn btn-secondary" style="flex: 1; font-size: 0.8rem;" 
+                            onclick="rotateApi('${service}')">
+                        <i class="fas fa-sync"></i> Rotar
+                    </button>
+                </div>
+                
+                <div class="current-api-display" style="margin-top: 1rem;">
+                    <div class="api-rotation-status">API Atual:</div>
+                    <div class="current-api-name">${currentApi.name || 'Nenhuma'}</div>
+                </div>
+            `;
+            
+            return card;
+        }
+        
+        function getStatusClass(status) {
+            switch (status) {
+                case 'active': return 'status-active';
+                case 'error': return 'status-error';
+                case 'rate_limited': return 'status-rate-limited';
+                case 'offline': return 'status-offline';
+                default: return 'status-offline';
+            }
+        }
+        
+        async function updateApiKey(service) {
+            const keyInput = document.getElementById(`${service}-key`);
+            const apiKey = keyInput.value.trim();
+            
+            if (!apiKey) {
+                showNotification('Digite uma chave de API válida', 'warning');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/apis/update', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        service: service,
+                        api_name: `${service}_1`,
+                        api_key: apiKey
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showNotification(`Chave ${service.toUpperCase()} atualizada`, 'success');
+                    keyInput.value = '';
+                    loadApiStatus();
+                } else {
+                    showNotification(result.error, 'error');
+                }
+            } catch (error) {
+                console.error('Erro ao atualizar API:', error);
+                showNotification('Erro ao atualizar chave da API', 'error');
+            }
+        }
+        
+        async function rotateApi(service) {
+            try {
+                const response = await fetch('/api/apis/rotate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ service: service })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showNotification(`API ${service.toUpperCase()} rotacionada`, 'success');
+                    loadApiStatus();
+                } else {
+                    showNotification(result.error, 'error');
+                }
+            } catch (error) {
+                console.error('Erro ao rotar API:', error);
+                showNotification('Erro ao rotar API', 'error');
+            }
+        }
+        
+        async function refreshApiStatus() {
+            showNotification('Atualizando status das APIs...', 'info');
+            await loadApiStatus();
+            showNotification('Status das APIs atualizado', 'success');
+        }
+        
+        async function resetApiErrors() {
+            try {
+                const response = await fetch('/api/apis/reset-errors', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showNotification('Erros das APIs resetados', 'success');
+                    loadApiStatus();
+                } else {
+                    showNotification(result.error, 'error');
+                }
+            } catch (error) {
+                console.error('Erro ao resetar erros:', error);
+                showNotification('Erro ao resetar erros das APIs', 'error');
+            }
+        }
+        
+        // Funções de progresso
+        async function loadProgressInfo() {
+            if (!currentSessionId) return;
+            
+            try {
+                const response = await fetch(`/api/progress/status/${currentSessionId}`);
+                const result = await response.json();
+                
+                if (result.success) {
+                    displayProgressInfo(result.progress);
+                }
+            } catch (error) {
+                console.error('Erro ao carregar progresso:', error);
+            }
+        }
+        
+        function displayProgressInfo(progress) {
+            const progressInfo = document.getElementById('progressInfo');
+            const sessionTitle = document.getElementById('currentSessionTitle');
+            const progressPercentage = document.getElementById('currentProgressPercentage');
+            const progressBar = document.getElementById('currentProgressBar');
+            const progressStatus = document.getElementById('currentProgressStatus');
+            
+            progressInfo.style.display = 'block';
+            sessionTitle.textContent = `Sessão: ${progress.session_id}`;
+            progressPercentage.textContent = `${Math.round(progress.progress_percentage)}%`;
+            progressBar.style.width = `${progress.progress_percentage}%`;
+            progressStatus.textContent = `Etapa ${progress.current_step}/${progress.total_steps} - ${progress.state}`;
+        }
+        
+        async function loadCheckpoints() {
+            if (!currentSessionId) return;
+            
+            try {
+                const response = await fetch(`/api/progress/checkpoints/${currentSessionId}`);
+                const result = await response.json();
+                
+                if (result.success) {
+                    displayCheckpoints(result.checkpoints);
+                }
+            } catch (error) {
+                console.error('Erro ao carregar checkpoints:', error);
+            }
+        }
+        
+        function displayCheckpoints(checkpoints) {
+            const checkpointsList = document.getElementById('checkpointsList');
+            
+            if (checkpoints.length === 0) {
+                checkpointsList.innerHTML = '<p>Nenhum checkpoint salvo ainda.</p>';
+                return;
+            }
+            
+            const checkpointsHtml = checkpoints.map(checkpoint => `
+                <div class="alert alert-info">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <strong>${checkpoint.current_step}</strong><br>
+                            <small>${new Date(checkpoint.timestamp * 1000).toLocaleString()}</small><br>
+                            <small>Progresso: ${Math.round(checkpoint.progress_percentage)}%</small>
+                        </div>
+                        <button class="btn btn-primary" onclick="continueFromCheckpoint('${checkpoint.checkpoint_id}')">
+                            <i class="fas fa-play"></i> Continuar
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+            
+            checkpointsList.innerHTML = `
+                <h5>Checkpoints Salvos (${checkpoints.length})</h5>
+                ${checkpointsHtml}
+            `;
+        }
+        
+        async function continueFromCheckpoint(checkpointId) {
+            try {
+                const response = await fetch('/api/progress/continue', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ checkpoint_id: checkpointId })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    currentSessionId = result.session_id;
+                    showNotification('Execução continuada do checkpoint', 'success');
+                    updateControlButtons('running');
+                    loadProgressInfo();
+                } else {
+                    showNotification(result.error, 'error');
+                }
+            } catch (error) {
+                console.error('Erro ao continuar do checkpoint:', error);
+                showNotification('Erro ao continuar do checkpoint', 'error');
+            }
+        }
+        
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll(".tab-button").forEach(button => {
+                button.addEventListener("click", () => {
+                    const tabName = button.dataset.tab;
+                    switchTab(tabName, button);
+                });
+            });
+        });
+
+        function switchTab(tabName, clickedButton) {
             // Remove active de todos os botões
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.classList.remove('active');
@@ -1424,6 +2101,27 @@
             const i = Math.floor(Math.log(bytes) / Math.log(k));
             return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
         }
+        
+        // Inicialização das novas funcionalidades
+        document.addEventListener('DOMContentLoaded', function() {
+            // Carrega configuração salva
+            loadSavedConfiguration();
+            
+            // Carrega status das APIs
+            loadApiStatus();
+            
+            // Atualiza status das APIs a cada 30 segundos
+            setInterval(loadApiStatus, 30000);
+            
+            // Carrega informações de progresso se há sessão ativa
+            if (currentSessionId) {
+                loadProgressInfo();
+                loadCheckpoints();
+                
+                // Atualiza progresso a cada 5 segundos
+                setInterval(loadProgressInfo, 5000);
+            }
+        });
     </script>
 </body>
 </html>
