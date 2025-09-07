@@ -422,167 +422,181 @@ class EnhancedAPIRotationManager:
             for i, api in enumerate(self.apis[service]):
                 if api.name == api_name:
                     api.error_count += 1
-                    
-                    # Rotação IMEDIATA na primeira falha para garantir disponibilidade
                     api.status = APIStatus.ERROR
-                    logger.warning(f"⚠️ API {api_name} marcada como ERROR - ROTAÇÃO IMEDIATA")
                     
-                    # Forçar rotação para próxima API disponível
-                    if len(self.apis[service]) > 1:
-                        # Encontrar próxima API ativa
-                        next_api_found = False
-                        for j in range(1, len(self.apis[service])):
-                            next_index = (i + j) % len(self.apis[service])
-                            next_api = self.apis[service][next_index]
-                            
-                            # Verificar se a próxima API está disponível
-                            if self._is_api_available(next_api) or next_api.status != APIStatus.ERROR:
-                                self.current_api_index[service] = next_index
-                                logger.info(f"🔄 ROTAÇÃO AUTOMÁTICA: {service} → {next_api.name}")
-                                next_api_found = True
-                                break
-                        
-                        if not next_api_found:
-                            logger.error(f"❌ Nenhuma API alternativa disponível para {service}")
+                    # Se muitos erros, marca como offline temporariamente
+                    if api.error_count >= 3:
+                        api.status = APIStatus.OFFLINE
+                        api.rate_limit_reset = datetime.now() + timedelta(minutes=5)
                     
-                    # Recuperação mais rápida - 1 minuto para tentar novamente
-                    self._schedule_api_recovery(service, api_name, recovery_time=60)
+                    # Força rotação para próxima API
+                    self.current_api_index[service] = (i + 1) % len(self.apis[service])
+                    
+                    logger.warning(f"⚠️ API {api_name} marcada com erro: {error}")
+                    logger.info(f"🔄 Rotação forçada para {service}")
                     break
     
-    def _schedule_api_recovery(self, service: str, api_name: str, recovery_time: int = 60):
-        """Agenda recuperação automática da API após período de cooldown"""
-        def recover_api():
-            time.sleep(recovery_time)  # Cooldown configurável (padrão 1 minuto)
-            with self.lock:
-                for api in self.apis[service]:
-                    if api.name == api_name:
-                        api.status = APIStatus.ACTIVE
-                        api.error_count = 0
-                        logger.info(f"✅ API {api_name} RECUPERADA automaticamente após {recovery_time}s")
-                        break
-        
-        import threading
-        threading.Thread(target=recover_api, daemon=True).start()
-        logger.info(f"⏱️ Recuperação de {api_name} agendada para {recovery_time} segundos")
-    
-    def mark_api_rate_limited(self, service: str, api_name: str, reset_time: Optional[datetime] = None):
-        """Marca API como rate limited"""
-        with self.lock:
-            for api in self.apis[service]:
-                if api.name == api_name:
-                    api.status = APIStatus.RATE_LIMITED
-                    api.rate_limit_reset = reset_time or (datetime.now() + timedelta(minutes=1))
-                    logger.warning(f"⚠️ API {api_name} rate limited até {api.rate_limit_reset}")
-                    break
-    
-    def get_fallback_api(self, service_type: str, failed_service: str = None) -> Optional[APIEndpoint]:
+    def get_fallback_api(self, service_type: str) -> Optional[APIEndpoint]:
         """
-        Retorna API de fallback baseada nas cadeias configuradas
+        Obtém API de fallback baseada nas cadeias de prioridade
         """
         if service_type not in self.fallback_chains:
-            logger.warning(f"⚠️ Tipo de serviço desconhecido: {service_type}")
             return None
         
-        chain = self.fallback_chains[service_type]
-        
-        # Se um serviço específico falhou, começar do próximo na cadeia
-        start_index = 0
-        if failed_service:
-            for i, services in enumerate(chain):
-                if failed_service in services:
-                    start_index = i + 1
-                    break
-        
-        # Percorrer cadeia de fallback a partir do índice calculado
-        for i in range(start_index, len(chain)):
-            for service_name in chain[i]:
-                if service_name in self.apis and self.apis[service_name]:
-                    # Usar get_active_api para obter API disponível
-                    api = self.get_active_api(service_name)
-                    if api:
-                        logger.info(f"🔄 Fallback para {service_name} (tipo: {service_type})")
-                        return api
+        # Tenta cada cadeia de fallback em ordem de prioridade
+        for chain in self.fallback_chains[service_type]:
+            for service in chain:
+                api = self.get_active_api(service)
+                if api:
+                    logger.info(f"🔄 Fallback ativado: {service} para {service_type}")
+                    return api
         
         logger.error(f"❌ Nenhum fallback disponível para {service_type}")
         return None
-
-    def get_api_with_fallback(self, service_type: str) -> Optional[APIEndpoint]:
-        """
-        Obtém API com fallback automático
-        """
-        # Tentar obter API primária
-        api = self.get_active_api_by_type(service_type)
-        if api:
-            return api
-        
-        # Se falhou, tentar fallback
-        return self.get_fallback_api(service_type)
-
-    def get_active_api_by_type(self, service_type: str) -> Optional[APIEndpoint]:
-        """
-        Obtém API ativa baseada no tipo de serviço
-        """
-        if service_type not in self.fallback_chains:
-            return None
-        
-        # Tentar primeiro serviço da cadeia
-        primary_services = self.fallback_chains[service_type][0]
-        
-        for service_name in primary_services:
-            if service_name in self.apis and self.apis[service_name]:
-                # Usar o método get_active_api existente
-                api = self.get_active_api(service_name)
-                if api:
-                    return api
-        
-        return None
     
-    def get_api_status_report(self) -> Dict[str, Any]:
-        """Retorna relatório de status das APIs"""
-        report = {
-            'timestamp': datetime.now().isoformat(),
-            'services': {}
-        }
-        
-        for service, apis in self.apis.items():
-            service_status = {
-                'total_apis': len(apis),
-                'active': 0,
-                'rate_limited': 0,
-                'error': 0,
-                'offline': 0,
-                'apis': []
-            }
+    def rotate_api(self, service: str) -> Optional[APIEndpoint]:
+        """
+        Força rotação manual para próxima API disponível
+        """
+        with self.lock:
+            if service not in self.apis or not self.apis[service]:
+                return None
             
-            for api in apis:
-                service_status[api.status.value] += 1
-                service_status['apis'].append({
+            apis = self.apis[service]
+            current_index = self.current_api_index[service]
+            
+            # Tenta próximas APIs
+            for i in range(1, len(apis)):
+                next_index = (current_index + i) % len(apis)
+                api = apis[next_index]
+                
+                if self._is_api_available(api):
+                    self.current_api_index[service] = next_index
+                    api.last_used = datetime.now()
+                    logger.info(f"🔄 Rotação manual: {api.name} para {service}")
+                    return api
+            
+            return None
+    
+    def get_api_status(self, service: str = None) -> Dict[str, Any]:
+        """
+        Retorna status detalhado das APIs
+        """
+        if service:
+            if service not in self.apis:
+                return {}
+            
+            apis_status = []
+            for api in self.apis[service]:
+                apis_status.append({
                     'name': api.name,
                     'status': api.status.value,
                     'error_count': api.error_count,
                     'requests_made': api.requests_made,
-                    'last_used': api.last_used.isoformat() if api.last_used else None
+                    'max_requests': api.max_requests_per_minute,
+                    'last_used': api.last_used.isoformat() if api.last_used else None,
+                    'rate_limit_reset': api.rate_limit_reset.isoformat() if api.rate_limit_reset else None
                 })
             
-            report['services'][service] = service_status
+            return {
+                'service': service,
+                'current_api_index': self.current_api_index.get(service, 0),
+                'apis': apis_status
+            }
         
-        return report
+        # Status de todos os serviços
+        all_status = {}
+        for svc in self.apis:
+            all_status[svc] = self.get_api_status(svc)
+        
+        return all_status
+    
+    def update_api_key(self, service: str, api_name: str, new_key: str) -> bool:
+        """
+        Atualiza chave de API em tempo real
+        """
+        with self.lock:
+            for api in self.apis[service]:
+                if api.name == api_name:
+                    api.api_key = new_key
+                    api.status = APIStatus.ACTIVE
+                    api.error_count = 0
+                    api.requests_made = 0
+                    logger.info(f"🔑 Chave atualizada para {api_name}")
+                    return True
+        return False
+    
+    def add_api_key(self, service: str, api_key: str, base_url: str = None) -> str:
+        """
+        Adiciona nova chave de API dinamicamente
+        """
+        with self.lock:
+            api_name = f"{service}_{len(self.apis[service]) + 1}"
+            
+            new_api = APIEndpoint(
+                name=api_name,
+                api_key=api_key,
+                base_url=base_url or self._get_base_url(service),
+                max_requests_per_minute=60
+            )
+            
+            self.apis[service].append(new_api)
+            logger.info(f"➕ Nova API adicionada: {api_name}")
+            return api_name
+    
+    def remove_api_key(self, service: str, api_name: str) -> bool:
+        """
+        Remove chave de API
+        """
+        with self.lock:
+            for i, api in enumerate(self.apis[service]):
+                if api.name == api_name:
+                    del self.apis[service][i]
+                    # Ajusta índice atual se necessário
+                    if self.current_api_index[service] >= len(self.apis[service]):
+                        self.current_api_index[service] = 0
+                    logger.info(f"➖ API removida: {api_name}")
+                    return True
+        return False
     
     def reset_api_errors(self, service: str = None):
-        """Reset contadores de erro"""
-        services_to_reset = [service] if service else self.apis.keys()
+        """
+        Reseta contadores de erro das APIs
+        """
+        with self.lock:
+            services = [service] if service else self.apis.keys()
+            
+            for svc in services:
+                for api in self.apis[svc]:
+                    api.error_count = 0
+                    if api.status == APIStatus.ERROR:
+                        api.status = APIStatus.ACTIVE
+            
+            logger.info(f"🔄 Erros resetados para {service or 'todos os serviços'}")
+    
+    def get_next_available_api(self, service: str) -> Optional[APIEndpoint]:
+        """
+        Obtém próxima API disponível sem alterar o índice atual
+        """
+        if service not in self.apis or not self.apis[service]:
+            return None
         
-        for svc in services_to_reset:
-            for api in self.apis[svc]:
-                api.error_count = 0
-                if api.status == APIStatus.ERROR:
-                    api.status = APIStatus.ACTIVE
+        apis = self.apis[service]
+        current_index = self.current_api_index[service]
         
-        logger.info(f"✅ Erros resetados para: {', '.join(services_to_reset)}")
+        # Verifica próximas APIs sem alterar estado
+        for i in range(len(apis)):
+            index = (current_index + i) % len(apis)
+            api = apis[index]
+            
+            if self._is_api_available(api):
+                return api
+        
+        return None
 
 # Instância global
-api_rotation_manager = EnhancedAPIRotationManager()
+enhanced_api_rotation_manager = EnhancedAPIRotationManager()
 
 def get_api_manager() -> EnhancedAPIRotationManager:
     """Retorna instância do gerenciador de APIs"""
-    return api_rotation_manager
+    return enhanced_api_rotation_manager

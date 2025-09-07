@@ -1412,7 +1412,7 @@ RETORNE JSON com posicionamento COMPLETO:
                         "synthesis": synthesis_data
                     }
                     
-                    module_result = method(fake_massive_data, context, session_id)
+                    module_result = method(massive_data=massive_data, context=context, session_id=session_id)
                     
                     if module_result.get('processing_status') == 'SUCCESS':
                         modules_generated.append({

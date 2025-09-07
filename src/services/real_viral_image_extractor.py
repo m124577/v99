@@ -38,7 +38,7 @@ class RealViralImageExtractor:
     def __init__(self):
         self.session = None
         self.driver = None
-        self.images_dir = "/workspace/project/v100/viral_images"
+        self.images_dir = "/home/ubuntu/v81/viral_images"
         self._ensure_directories()
         
     def _ensure_directories(self):
