@@ -68,50 +68,53 @@
         .header p {
             font-size: 1.2rem;
             color: var(--text-secondary);
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .workflow-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
+            font-weight: 400;
         }
         
         .tabs-container {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 2rem;
             margin-bottom: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .tabs-nav {
             display: flex;
             gap: 1rem;
             margin-bottom: 2rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            flex-wrap: wrap;
         }
         
         .tab-button {
-            padding: 1rem 1.5rem;
-            background: none;
-            border: none;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
             color: var(--text-secondary);
-            font-weight: 600;
             cursor: pointer;
-            border-bottom: 3px solid transparent;
             transition: all 0.3s ease;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .tab-button:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            transform: translateY(-2px);
         }
         
         .tab-button.active {
-            color: var(--primary-color);
-            border-bottom-color: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-color: var(--primary-color);
         }
         
         .tab-content {
             display: none;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
         }
         
         .tab-content.active {
@@ -119,239 +122,9 @@
             animation: fadeIn 0.3s ease;
         }
         
-        .api-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-        
-        .api-service-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            padding: 1.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .api-service-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
-            text-transform: uppercase;
-        }
-        
-        .api-key-input {
-            width: 100%;
-            padding: 0.75rem;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            color: var(--text-primary);
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .api-status {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .status-indicator {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-        
-        .status-active { background: var(--success-color); }
-        .status-error { background: var(--error-color); }
-        .status-rate-limited { background: var(--warning-color); }
-        .status-offline { background: #6b7280; }
-        
-        .progress-controls {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin: 2rem 0;
-            flex-wrap: wrap;
-        }
-        
-        .control-btn {
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            min-width: 120px;
-            justify-content: center;
-        }
-        
-        .btn-pause {
-            background: var(--warning-color);
-            color: white;
-        }
-        
-        .btn-save {
-            background: var(--info-color);
-            color: white;
-        }
-        
-        .btn-resume {
-            background: var(--success-color);
-            color: white;
-        }
-        
-        .btn-stop {
-            background: var(--error-color);
-            color: white;
-        }
-        
-        .control-btn:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-        
-        .control-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        
-        .current-api-display {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 1rem;
-            margin-top: 1rem;
-            border-left: 4px solid var(--primary-color);
-        }
-        
-        .api-rotation-status {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            margin-bottom: 0.5rem;
-        }
-        
-        .current-api-name {
-            font-weight: 700;
-            color: var(--primary-color);
-        }
-        
-        .step-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .step-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-        }
-        
-        .step-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-        
-        .step-card.completed {
-            border-color: var(--success-color);
-        }
-        
-        .step-card.running {
-            border-color: var(--warning-color);
-            animation: pulse 2s infinite;
-        }
-        
-        .step-number {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: white;
-            margin-bottom: 1.5rem;
-        }
-        
-        .step-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
-        }
-        
-        .step-description {
-            color: var(--text-secondary);
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-        
-        .step-features {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .feature-tag {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--text-primary);
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-        
-        .step-btn {
-            width: 100%;
-            padding: 1rem;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-        
-        .step-btn:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
-        }
-        
-        .step-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        
-        .config-section {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         .form-group {
@@ -368,8 +141,8 @@
         .form-control {
             width: 100%;
             padding: 1rem;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
             border-radius: 12px;
             color: var(--text-primary);
             font-size: 1rem;
@@ -383,206 +156,21 @@
         }
         
         .form-control::placeholder {
-            color: rgba(255, 255, 255, 0.5);
-        }
-        
-        .progress-section {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 2rem;
-            margin: 2rem 0;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            display: none;
-        }
-        
-        .progress-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-        
-        .progress-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .progress-percentage {
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--primary-color);
-        }
-        
-        .progress-bar-container {
-            width: 100%;
-            height: 12px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 6px;
-            overflow: hidden;
-            margin-bottom: 1rem;
-        }
-        
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-            border-radius: 6px;
-            transition: width 0.5s ease;
-            width: 0%;
-            position: relative;
-        }
-        
-        .progress-bar::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            animation: shimmer 2s infinite;
-        }
-        
-        .progress-status {
             color: var(--text-secondary);
-            font-size: 1rem;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            border-left: 4px solid var(--primary-color);
-        }
-        
-        .step-indicators {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 1rem;
-            margin: 2rem 0;
-        }
-        
-        .step-indicator {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            transition: all 0.3s ease;
-        }
-        
-        .step-indicator.active {
-            background: var(--primary-color);
-            color: white;
-            transform: scale(1.2);
-        }
-        
-        .step-indicator.completed {
-            background: var(--success-color);
-            color: white;
-        }
-        
-        .step-line {
-            width: 60px;
-            height: 2px;
-            background: rgba(255, 255, 255, 0.2);
-        }
-        
-        .results-section {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 2rem;
-            margin-top: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            display: none;
-        }
-        
-        .results-tabs {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .tab-btn {
-            padding: 1rem 1.5rem;
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            font-weight: 600;
-            cursor: pointer;
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s ease;
-        }
-        
-        .tab-btn.active {
-            color: var(--primary-color);
-            border-bottom-color: var(--primary-color);
-        }
-        
-        .tab-content {
-            display: none;
-        }
-        
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-        
-        .alert {
-            padding: 1rem 1.5rem;
-            border-radius: 12px;
-            margin-bottom: 1rem;
-            border-left: 4px solid;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-        
-        .alert-success {
-            background: rgba(16, 185, 129, 0.1);
-            border-color: var(--success-color);
-            color: var(--success-color);
-        }
-        
-        .alert-warning {
-            background: rgba(245, 158, 11, 0.1);
-            border-color: var(--warning-color);
-            color: var(--warning-color);
-        }
-        
-        .alert-error {
-            background: rgba(239, 68, 68, 0.1);
-            border-color: var(--error-color);
-            color: var(--error-color);
-        }
-        
-        .alert-info {
-            background: rgba(6, 182, 212, 0.1);
-            border-color: var(--info-color);
-            color: var(--info-color);
-        }
-        
-        .btn-group {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin-top: 2rem;
         }
         
         .btn {
-            padding: 0.75rem 1.5rem;
+            padding: 1rem 2rem;
             border: none;
             border-radius: 12px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 0.5rem;
+            text-decoration: none;
+            font-size: 1rem;
         }
         
         .btn-primary {
@@ -590,111 +178,225 @@
             color: white;
         }
         
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, var(--success-color), #059669);
+            color: white;
+        }
+        
+        .btn-warning {
+            background: linear-gradient(135deg, var(--warning-color), #d97706);
+            color: white;
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, var(--error-color), #dc2626);
+            color: white;
+        }
+        
         .btn-secondary {
             background: rgba(255, 255, 255, 0.1);
             color: var(--text-primary);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .btn:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-color);
         }
         
         .btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
+            transform: none !important;
         }
         
-        .loading-spinner {
-            width: 20px;
-            height: 20px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: currentColor;
-            animation: spin 1s linear infinite;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
+        .progress-container {
             margin: 2rem 0;
-        }
-        
-        .stat-card {
-            background: rgba(255, 255, 255, 0.05);
             padding: 1.5rem;
-            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .progress-text {
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-weight: 600;
+            color: var(--text-primary);
         }
         
-        .stat-value {
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
+        .status-container {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
         }
         
-        .stat-label {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        
-        .notification-container {
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            max-width: 400px;
-        }
-        
-        .notification {
-            background: rgba(255, 255, 255, 0.95);
-            color: #1f2937;
-            padding: 1rem;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            border-left: 4px solid;
+        .status-item {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            animation: slideIn 0.3s ease;
+            gap: 1rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        .notification-success { border-color: var(--success-color); }
-        .notification-warning { border-color: var(--warning-color); }
-        .notification-error { border-color: var(--error-color); }
-        .notification-info { border-color: var(--info-color); }
+        .status-item:last-child {
+            border-bottom: none;
+        }
         
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        .status-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .status-icon.pending {
+            background: var(--warning-color);
+        }
+        
+        .status-icon.running {
+            background: var(--info-color);
+            animation: pulse 2s infinite;
+        }
+        
+        .status-icon.completed {
+            background: var(--success-color);
+        }
+        
+        .status-icon.error {
+            background: var(--error-color);
         }
         
         @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
         }
         
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
+        .results-container {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
         }
         
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        .control-buttons {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
         }
         
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateX(100px); }
-            to { opacity: 1; transform: translateX(0); }
+        .api-config-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .api-service-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 1.5rem;
+        }
+        
+        .api-service-title {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .api-status {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-left: auto;
+        }
+        
+        .api-status.active {
+            background: var(--success-color);
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+        }
+        
+        .api-status.inactive {
+            background: var(--error-color);
+        }
+        
+        .api-keys-list {
+            margin-top: 1rem;
+        }
+        
+        .api-key-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            padding: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+        
+        .api-key-input {
+            flex: 1;
+            padding: 0.5rem;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+        
+        .session-controls {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .session-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .session-id {
+            font-family: monospace;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+        
+        .responsive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
         }
         
         @media (max-width: 768px) {
@@ -702,16 +404,20 @@
                 padding: 1rem;
             }
             
-            .workflow-container {
-                grid-template-columns: 1fr;
-            }
-            
             .header h1 {
                 font-size: 2rem;
             }
             
-            .btn-group {
+            .tabs-nav {
                 flex-direction: column;
+            }
+            
+            .control-buttons {
+                flex-direction: column;
+            }
+            
+            .api-config-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -721,1087 +427,916 @@
         <!-- Header -->
         <div class="header">
             <h1><i class="fas fa-rocket"></i> ARQV30 Enhanced v3.0</h1>
-            <p>Sistema de Análise Ultra-Detalhada com Busca Massiva Real, Captura de Screenshots e IA com Ferramentas</p>
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-value">3</div>
-                    <div class="stat-label">Etapas de Workflow</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value">16</div>
-                    <div class="stat-label">Módulos de Análise</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value">100%</div>
-                    <div class="stat-label">Dados Reais</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value">0%</div>
-                    <div class="stat-label">Simulação</div>
-                </div>
-            </div>
+            <p>Análise Ultra-Detalhada de Mercado com IA Avançada</p>
         </div>
-
-        <!-- Configuração -->
-        <div class="config-section">
-            <h3><i class="fas fa-cog"></i> Configuração da Análise</h3>
-            <form id="analysisForm">
-                <div class="row">
-                    <div class="col-md-6">
+        
+        <!-- Tabs Navigation -->
+        <div class="tabs-container">
+            <div class="tabs-nav">
+                <button class="tab-button active" onclick="switchTab('analysis', this)">
+                    <i class="fas fa-chart-line"></i> Análise
+                </button>
+                <button class="tab-button" onclick="switchTab('progress', this)">
+                    <i class="fas fa-tasks"></i> Progresso
+                </button>
+                <button class="tab-button" onclick="switchTab('apis', this)">
+                    <i class="fas fa-cogs"></i> APIs
+                </button>
+                <button class="tab-button" onclick="switchTab('results', this)">
+                    <i class="fas fa-file-alt"></i> Resultados
+                </button>
+            </div>
+            
+            <!-- Analysis Tab -->
+            <div id="analysisTab" class="tab-content active">
+                <h3><i class="fas fa-search"></i> Configuração da Análise</h3>
+                
+                <!-- Session Controls -->
+                <div class="session-controls">
+                    <div class="session-info">
+                        <strong>Sessão Atual:</strong>
+                        <span id="currentSessionId" class="session-id">Nenhuma sessão ativa</span>
+                        <button class="btn btn-secondary" onclick="generateNewSession()">
+                            <i class="fas fa-plus"></i> Nova Sessão
+                        </button>
+                    </div>
+                    
+                    <div class="control-buttons">
+                        <button id="startBtn" class="btn btn-primary" onclick="startAnalysis()">
+                            <i class="fas fa-play"></i> Iniciar Análise
+                        </button>
+                        <button id="pauseBtn" class="btn btn-warning" onclick="pauseAnalysis()" disabled>
+                            <i class="fas fa-pause"></i> Pausar
+                        </button>
+                        <button id="saveBtn" class="btn btn-success" onclick="saveProgress()" disabled>
+                            <i class="fas fa-save"></i> Salvar Progresso
+                        </button>
+                        <button id="continueBtn" class="btn btn-primary" onclick="continueAnalysis()" disabled>
+                            <i class="fas fa-play"></i> Continuar
+                        </button>
+                        <button id="stopBtn" class="btn btn-danger" onclick="stopAnalysis()" disabled>
+                            <i class="fas fa-stop"></i> Parar
+                        </button>
+                    </div>
+                </div>
+                
+                <form id="analysisForm">
+                    <div class="responsive-grid">
                         <div class="form-group">
                             <label class="form-label" for="segmento">
-                                <i class="fas fa-bullseye"></i> Segmento de Mercado *
+                                <i class="fas fa-industry"></i> Segmento/Nicho
                             </label>
-                            <input type="text" id="segmento" name="segmento" class="form-control" 
-                                   placeholder="Ex: Tecnologia, Saúde, E-commerce..." required>
+                            <input type="text" id="segmento" class="form-control" 
+                                   placeholder="Ex: Tecnologia, Saúde, Educação..." required>
                         </div>
-                    </div>
-                    <div class="col-md-6">
+                        
                         <div class="form-group">
                             <label class="form-label" for="produto">
                                 <i class="fas fa-box"></i> Produto/Serviço
                             </label>
-                            <input type="text" id="produto" name="produto" class="form-control"
-                                   placeholder="Nome do seu produto ou serviço">
+                            <input type="text" id="produto" class="form-control" 
+                                   placeholder="Ex: Software SaaS, Curso Online..." required>
                         </div>
-                    </div>
-                </div>
-                
-                <div class="row">
-                    <div class="col-md-6">
+                        
                         <div class="form-group">
                             <label class="form-label" for="preco">
-                                <i class="fas fa-dollar-sign"></i> Preço (R$)
+                                <i class="fas fa-dollar-sign"></i> Faixa de Preço
                             </label>
-                            <input type="number" id="preco" name="preco" class="form-control" 
-                                   step="0.01" placeholder="997.00">
+                            <input type="text" id="preco" class="form-control" 
+                                   placeholder="Ex: R$ 100-500, R$ 1000+..." required>
                         </div>
-                    </div>
-                    <div class="col-md-6">
+                        
                         <div class="form-group">
-                            <label class="form-label" for="objetivo_receita">
-                                <i class="fas fa-chart-line"></i> Objetivo de Receita (R$)
+                            <label class="form-label" for="publico">
+                                <i class="fas fa-users"></i> Público-Alvo
                             </label>
-                            <input type="number" id="objetivo_receita" name="objetivo_receita" 
-                                   class="form-control" step="0.01" placeholder="100000.00">
+                            <input type="text" id="publico" class="form-control" 
+                                   placeholder="Ex: Empresários, Estudantes..." required>
                         </div>
                     </div>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label" for="publico">
-                        <i class="fas fa-users"></i> Público-Alvo Detalhado
-                    </label>
-                    <textarea id="publico" name="publico" class="form-control" rows="4"
-                              placeholder="Descreva detalhadamente seu público-alvo: dores, desejos, características demográficas..."></textarea>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label" for="contexto_adicional">
-                        <i class="fas fa-plus-circle"></i> Contexto Adicional
-                    </label>
-                    <textarea id="contexto_adicional" name="contexto_adicional" class="form-control" rows="3"
-                              placeholder="Informações adicionais relevantes para a análise..."></textarea>
-                </div>
-            </form>
-        </div>
-
-        <!-- Tabs Container -->
-        <div class="tabs-container">
-            <div class="tabs-nav">
-              <button class="tab-button active" data-tab="workflow">
-                    <i class="fas fa-play"></i> Workflow
-                </button>
-              <button class="tab-button" data-tab="apis">
-                    <i class="fas fa-key"></i> APIs
-                </button>
-               <button class="tab-button" data-tab="progress">                    <i class="fas fa-tasks"></i> Progresso
-                </button>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="contexto">
+                            <i class="fas fa-info-circle"></i> Contexto Adicional
+                        </label>
+                        <textarea id="contexto" class="form-control" rows="4" 
+                                  placeholder="Descreva detalhes específicos, objetivos, mercado geográfico, etc..."></textarea>
+                    </div>
+                </form>
             </div>
-
-            <!-- Workflow Tab -->
-            <div id="workflow-tab" class="tab-content active">
-                <!-- Progress Controls -->
-                <div class="progress-controls">
-                    <button class="control-btn btn-pause" id="pauseBtn" onclick="pauseExecution()" disabled>
-                        <i class="fas fa-pause"></i> Pausar
-                    </button>
-                    <button class="control-btn btn-save" id="saveBtn" onclick="saveProgress()" disabled>
-                        <i class="fas fa-save"></i> Salvar
-                    </button>
-                    <button class="control-btn btn-resume" id="resumeBtn" onclick="resumeExecution()" disabled>
-                        <i class="fas fa-play"></i> Continuar
-                    </button>
-                    <button class="control-btn btn-stop" id="stopBtn" onclick="stopExecution()" disabled>
-                        <i class="fas fa-stop"></i> Parar
-                    </button>
-                </div>
-
-                <!-- Current API Display -->
-                <div class="current-api-display" id="currentApiDisplay" style="display: none;">
-                    <div class="api-rotation-status">API Atual em Uso:</div>
-                    <div class="current-api-name" id="currentApiName">-</div>
-                </div>
-            </div>
-
-            <!-- APIs Tab -->
-            <div id="apis-tab" class="tab-content">
-                <h4><i class="fas fa-cogs"></i> Gerenciamento de APIs</h4>
-                <p>Configure e monitore suas chaves de API em tempo real</p>
-                
-                <div class="api-grid" id="apiGrid">
-                    <!-- APIs serão carregadas dinamicamente -->
-                </div>
-                
-                <div class="btn-group">
-                    <button class="btn btn-primary" onclick="refreshApiStatus()">
-                        <i class="fas fa-sync"></i> Atualizar Status
-                    </button>
-                    <button class="btn btn-secondary" onclick="resetApiErrors()">
-                        <i class="fas fa-redo"></i> Resetar Erros
-                    </button>
-                </div>
-            </div>
-
+            
             <!-- Progress Tab -->
-            <div id="progress-tab" class="tab-content">
-                <h4><i class="fas fa-chart-line"></i> Controle de Progresso</h4>
-                <p>Monitore e controle o progresso das execuções</p>
+            <div id="progressTab" class="tab-content">
+                <h3><i class="fas fa-tasks"></i> Progresso da Análise</h3>
                 
-                <div id="progressInfo" style="display: none;">
-                    <div class="progress-section">
-                        <div class="progress-header">
-                            <div class="progress-title">
-                                <i class="fas fa-cogs fa-spin"></i>
-                                <span id="currentSessionTitle">Sessão Atual</span>
-                            </div>
-                            <div class="progress-percentage" id="currentProgressPercentage">0%</div>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div id="progressFill" class="progress-fill"></div>
+                    </div>
+                    <div id="progressText" class="progress-text">Aguardando início...</div>
+                </div>
+                
+                <div class="status-container">
+                    <div class="status-item">
+                        <div id="step1Status" class="status-icon pending">
+                            <i class="fas fa-clock"></i>
                         </div>
-                        
-                        <div class="progress-bar-container">
-                            <div class="progress-bar" id="currentProgressBar"></div>
+                        <div>
+                            <strong>Etapa 1: Coleta Massiva de Dados</strong>
+                            <div id="step1Details" class="text-muted">Aguardando...</div>
                         </div>
-                        
-                        <div class="progress-status" id="currentProgressStatus">
-                            Aguardando início...
+                    </div>
+                    
+                    <div class="status-item">
+                        <div id="step2Status" class="status-icon pending">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <strong>Etapa 2: Síntese com IA</strong>
+                            <div id="step2Details" class="text-muted">Aguardando...</div>
+                        </div>
+                    </div>
+                    
+                    <div class="status-item">
+                        <div id="step3Status" class="status-icon pending">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <strong>Etapa 3: Geração de Módulos</strong>
+                            <div id="step3Details" class="text-muted">Aguardando...</div>
                         </div>
                     </div>
                 </div>
                 
-                <div id="checkpointsList">
-                    <!-- Checkpoints serão listados aqui -->
-                </div>
-            </div>
-        </div>
-
-        <!-- Workflow Steps -->
-        <div class="workflow-container">
-            <!-- Etapa 1 -->
-            <div class="step-card" id="step1Card">
-                <div class="step-number">1</div>
-                <h3 class="step-title">Coleta Massiva Real</h3>
-                <p class="step-description">
-                    Busca massiva com rotação de APIs, extração de conteúdo viral e captura automática de screenshots
-                </p>
-                <div class="step-features">
-                    <span class="feature-tag">🔄 Rotação de APIs</span>
-                    <span class="feature-tag">📸 Screenshots Automáticos</span>
-                    <span class="feature-tag">🔥 Conteúdo Viral</span>
-                    <span class="feature-tag">🌐 Múltiplos Provedores</span>
-                </div>
-                <button class="step-btn" id="step1Btn" onclick="startStep1()">
-                    <i class="fas fa-database"></i>
-                    <span>Iniciar Coleta Massiva</span>
-                </button>
-            </div>
-
-            <!-- Etapa 2 -->
-            <div class="step-card" id="step2Card">
-                <div class="step-number">2</div>
-                <h3 class="step-title">Síntese com IA Ativa</h3>
-                <p class="step-description">
-                    IA analisa dados coletados e realiza buscas online ativas para validar e enriquecer informações
-                </p>
-                <div class="step-features">
-                    <span class="feature-tag">🤖 IA com Ferramentas</span>
-                    <span class="feature-tag">🔍 Busca Ativa</span>
-                    <span class="feature-tag">✅ Validação Online</span>
-                    <span class="feature-tag">📊 Síntese JSON</span>
-                </div>
-                <button class="step-btn" id="step2Btn" onclick="startStep2()" disabled>
-                    <i class="fas fa-brain"></i>
-                    <span>Iniciar Síntese IA</span>
-                </button>
-            </div>
-
-            <!-- Etapa 3 -->
-            <div class="step-card" id="step3Card">
-                <div class="step-number">3</div>
-                <h3 class="step-title">Geração de 16 Módulos</h3>
-                <p class="step-description">
-                    Geração automática de 16 módulos especializados e compilação do relatório final completo
-                </p>
-                <div class="step-features">
-                    <span class="feature-tag">📝 16 Módulos</span>
-                    <span class="feature-tag">🔗 Compilação</span>
-                    <span class="feature-tag">📋 Relatório Final</span>
-                    <span class="feature-tag">📄 25+ Páginas</span>
-                </div>
-                <button class="step-btn" id="step3Btn" onclick="startStep3()" disabled>
-                    <i class="fas fa-cogs"></i>
-                    <span>Gerar Módulos</span>
-                </button>
-            </div>
-        </div>
-
-        <!-- Progress Section -->
-        <div class="progress-section" id="progressSection">
-            <div class="progress-header">
-                <div class="progress-title">
-                    <i class="fas fa-cogs fa-spin"></i>
-                    <span id="progressTitle">Workflow em Execução</span>
-                </div>
-                <div class="progress-percentage" id="progressPercentage">0%</div>
-            </div>
-            
-            <div class="progress-bar-container">
-                <div class="progress-bar" id="progressBar"></div>
-            </div>
-            
-            <div class="progress-status" id="progressStatus">
-                Iniciando workflow...
-            </div>
-            
-            <div class="step-indicators">
-                <div class="step-indicator" id="indicator1">1</div>
-                <div class="step-line"></div>
-                <div class="step-indicator" id="indicator2">2</div>
-                <div class="step-line"></div>
-                <div class="step-indicator" id="indicator3">3</div>
-            </div>
-        </div>
-
-        <!-- Results Section -->
-        <div class="results-section" id="resultsSection">
-            <h3><i class="fas fa-chart-bar"></i> Resultados da Análise</h3>
-            
-            <div class="results-tabs">
-                <button class="tab-btn active" onclick="switchTab('overview')">Visão Geral</button>
-                <button class="tab-btn" onclick="switchTab('modules')">16 Módulos</button>
-                <button class="tab-btn" onclick="switchTab('screenshots')">Screenshots</button>
-                <button class="tab-btn" onclick="switchTab('data')">Dados Coletados</button>
-            </div>
-            
-            <div class="tab-content active" id="overviewTab">
-                <div id="overviewContent">
-                    <!-- Conteúdo da visão geral -->
+                <div id="currentActivity" class="results-container" style="display: none;">
+                    <h4>Atividade Atual</h4>
+                    <div id="activityLog"></div>
                 </div>
             </div>
             
-            <div class="tab-content" id="modulesTab">
-                <div id="modulesContent">
-                    <!-- Lista dos 16 módulos -->
+            <!-- APIs Tab -->
+            <div id="apisTab" class="tab-content">
+                <h3><i class="fas fa-cogs"></i> Configuração de APIs</h3>
+                <p class="text-muted mb-4">Configure as chaves de API para os diferentes serviços utilizados na análise.</p>
+                
+                <div class="api-config-grid">
+                    <!-- OpenRouter APIs -->
+                    <div class="api-service-card">
+                        <div class="api-service-title">
+                            <i class="fas fa-brain"></i>
+                            OpenRouter (IA)
+                            <div id="openrouterStatus" class="api-status inactive"></div>
+                        </div>
+                        <div class="api-keys-list">
+                            <div class="api-key-item">
+                                <input type="password" class="api-key-input" placeholder="OpenRouter API Key 1" 
+                                       data-service="openrouter" data-index="0">
+                                <button class="btn btn-secondary btn-sm" onclick="testApiKey(this)">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                            </div>
+                            <div class="api-key-item">
+                                <input type="password" class="api-key-input" placeholder="OpenRouter API Key 2" 
+                                       data-service="openrouter" data-index="1">
+                                <button class="btn btn-secondary btn-sm" onclick="testApiKey(this)">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Gemini APIs -->
+                    <div class="api-service-card">
+                        <div class="api-service-title">
+                            <i class="fas fa-gem"></i>
+                            Google Gemini
+                            <div id="geminiStatus" class="api-status inactive"></div>
+                        </div>
+                        <div class="api-keys-list">
+                            <div class="api-key-item">
+                                <input type="password" class="api-key-input" placeholder="Gemini API Key 1" 
+                                       data-service="gemini" data-index="0">
+                                <button class="btn btn-secondary btn-sm" onclick="testApiKey(this)">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                            </div>
+                            <div class="api-key-item">
+                                <input type="password" class="api-key-input" placeholder="Gemini API Key 2" 
+                                       data-service="gemini" data-index="1">
+                                <button class="btn btn-secondary btn-sm" onclick="testApiKey(this)">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Groq APIs -->
+                    <div class="api-service-card">
+                        <div class="api-service-title">
+                            <i class="fas fa-lightning-bolt"></i>
+                            Groq
+                            <div id="groqStatus" class="api-status inactive"></div>
+                        </div>
+                        <div class="api-keys-list">
+                            <div class="api-key-item">
+                                <input type="password" class="api-key-input" placeholder="Groq API Key 1" 
+                                       data-service="groq" data-index="0">
+                                <button class="btn btn-secondary btn-sm" onclick="testApiKey(this)">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Search APIs -->
+                    <div class="api-service-card">
+                        <div class="api-service-title">
+                            <i class="fas fa-search"></i>
+                            Serper (Busca)
+                            <div id="serperStatus" class="api-status inactive"></div>
+                        </div>
+                        <div class="api-keys-list">
+                            <div class="api-key-item">
+                                <input type="password" class="api-key-input" placeholder="Serper API Key 1" 
+                                       data-service="serper" data-index="0">
+                                <button class="btn btn-secondary btn-sm" onclick="testApiKey(this)">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                            </div>
+                            <div class="api-key-item">
+                                <input type="password" class="api-key-input" placeholder="Serper API Key 2" 
+                                       data-service="serper" data-index="1">
+                                <button class="btn btn-secondary btn-sm" onclick="testApiKey(this)">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Exa APIs -->
+                    <div class="api-service-card">
+                        <div class="api-service-title">
+                            <i class="fas fa-globe"></i>
+                            Exa (Web Search)
+                            <div id="exaStatus" class="api-status inactive"></div>
+                        </div>
+                        <div class="api-keys-list">
+                            <div class="api-key-item">
+                                <input type="password" class="api-key-input" placeholder="Exa API Key 1" 
+                                       data-service="exa" data-index="0">
+                                <button class="btn btn-secondary btn-sm" onclick="testApiKey(this)">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Jina APIs -->
+                    <div class="api-service-card">
+                        <div class="api-service-title">
+                            <i class="fas fa-file-text"></i>
+                            Jina (Content)
+                            <div id="jinaStatus" class="api-status inactive"></div>
+                        </div>
+                        <div class="api-keys-list">
+                            <div class="api-key-item">
+                                <input type="password" class="api-key-input" placeholder="Jina API Key 1" 
+                                       data-service="jina" data-index="0">
+                                <button class="btn btn-secondary btn-sm" onclick="testApiKey(this)">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Firecrawl APIs -->
+                    <div class="api-service-card">
+                        <div class="api-service-title">
+                            <i class="fas fa-fire"></i>
+                            Firecrawl
+                            <div id="firecrawlStatus" class="api-status inactive"></div>
+                        </div>
+                        <div class="api-keys-list">
+                            <div class="api-key-item">
+                                <input type="password" class="api-key-input" placeholder="Firecrawl API Key 1" 
+                                       data-service="firecrawl" data-index="0">
+                                <button class="btn btn-secondary btn-sm" onclick="testApiKey(this)">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Apify APIs -->
+                    <div class="api-service-card">
+                        <div class="api-service-title">
+                            <i class="fas fa-spider"></i>
+                            Apify (Scraping)
+                            <div id="apifyStatus" class="api-status inactive"></div>
+                        </div>
+                        <div class="api-keys-list">
+                            <div class="api-key-item">
+                                <input type="password" class="api-key-input" placeholder="Apify API Key 1" 
+                                       data-service="apify" data-index="0">
+                                <button class="btn btn-secondary btn-sm" onclick="testApiKey(this)">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="control-buttons mt-4">
+                    <button class="btn btn-primary" onclick="saveApiConfigs()">
+                        <i class="fas fa-save"></i> Salvar Configurações
+                    </button>
+                    <button class="btn btn-secondary" onclick="loadApiConfigs()">
+                        <i class="fas fa-download"></i> Carregar Configurações
+                    </button>
+                    <button class="btn btn-warning" onclick="testAllApis()">
+                        <i class="fas fa-check-circle"></i> Testar Todas as APIs
+                    </button>
                 </div>
             </div>
             
-            <div class="tab-content" id="screenshotsTab">
-                <div id="screenshotsContent">
-                    <!-- Screenshots capturados -->
+            <!-- Results Tab -->
+            <div id="resultsTab" class="tab-content">
+                <h3><i class="fas fa-file-alt"></i> Resultados da Análise</h3>
+                
+                <div id="resultsContainer" class="results-container">
+                    <p class="text-muted">Os resultados aparecerão aqui após a conclusão da análise.</p>
+                </div>
+                
+                <div id="downloadSection" style="display: none;">
+                    <h4>Downloads Disponíveis</h4>
+                    <div class="control-buttons">
+                        <button class="btn btn-success" onclick="downloadReport('pdf')">
+                            <i class="fas fa-file-pdf"></i> Download PDF
+                        </button>
+                        <button class="btn btn-primary" onclick="downloadReport('html')">
+                            <i class="fas fa-file-code"></i> Download HTML
+                        </button>
+                        <button class="btn btn-secondary" onclick="downloadReport('json')">
+                            <i class="fas fa-file-code"></i> Download JSON
+                        </button>
+                    </div>
                 </div>
             </div>
-            
-            <div class="tab-content" id="dataTab">
-                <div id="dataContent">
-                    <!-- Dados brutos coletados -->
-                </div>
-            </div>
-        </div>
-
-        <!-- Action Buttons -->
-        <div class="btn-group">
-            <button class="btn btn-primary" id="startCompleteWorkflowBtn" onclick="startCompleteWorkflow()">
-                <i class="fas fa-play"></i>
-                <span>Executar Workflow Completo</span>
-                <div class="loading-spinner" style="display: none;"></div>
-            </button>
-            
-            <button class="btn btn-secondary" onclick="resetWorkflow()">
-                <i class="fas fa-refresh"></i>
-                <span>Resetar</span>
-            </button>
-            
-            <button class="btn btn-secondary" onclick="downloadResults()" id="downloadBtn" style="display: none;">
-                <i class="fas fa-download"></i>
-                <span>Download Relatório</span>
-            </button>
         </div>
     </div>
-
-    <!-- Notification Container -->
-    <div class="notification-container" id="notificationContainer"></div>
-
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Estado global do workflow
-        let currentSessionId = null;
-        let workflowState = {
-            step: 0,
-            status: 'idle',
-            results: {}
-        };
+        console.log('🚀 ARQV30 Enhanced v3.0 Interface Carregada');
+        
+        // Estado global da aplicação
+        let currentSession = null;
+        let analysisState = 'idle'; // idle, running, paused, completed, error
+        let progressInterval = null;
+        let currentStep = 0;
+        let savedProgress = null;
         
         // Inicialização
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('🚀 ARQV30 Enhanced v3.0 Interface Carregada');
-            setupEventListeners();
-            loadSavedConfiguration();
+            initializeInterface();
+            loadApiConfigs();
+            checkApiStatus();
         });
         
-        function setupEventListeners() {
-            // Auto-save configuração
-            const form = document.getElementById('analysisForm');
-            if (form) {
-                form.addEventListener('change', saveConfiguration);
-            }
-            
-            // Atalhos de teclado
-            document.addEventListener('keydown', function(e) {
-                if (e.ctrlKey && e.key === 'Enter') {
-                    e.preventDefault();
-                    startCompleteWorkflow();
-                }
-            });
-        }
-        
-        async function startStep1() {
+        // Função para trocar abas (corrigida)
+        function switchTab(tabName, clickedButton) {
             try {
-                if (!validateForm()) {
-                    showNotification('Por favor, preencha pelo menos o segmento', 'warning');
-                    return;
-                }
-                
-                const formData = getFormData();
-                
-                showProgress(true);
-                updateProgress(1, 'Iniciando coleta massiva de dados...', 10);
-                updateStepCard('step1Card', 'running');
-                
-                const response = await fetch('/api/workflow/step1/start', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(formData)
+                // Remove active de todos os botões
+                document.querySelectorAll('.tab-button').forEach(btn => {
+                    btn.classList.remove('active');
                 });
                 
-                const result = await response.json();
-                
-                if (result.success) {
-                    currentSessionId = result.session_id;
-                    showNotification('Etapa 1 iniciada: Coleta massiva em execução', 'success');
-                    
-                    // Monitora progresso
-                    monitorStep1Progress();
-                } else {
-                    throw new Error(result.error);
-                }
-                
-            } catch (error) {
-                console.error('Erro na Etapa 1:', error);
-                showNotification(`Erro na Etapa 1: ${error.message}`, 'error');
-                updateStepCard('step1Card', 'error');
-                showProgress(false);
-            }
-        }
-        
-        async function startStep2() {
-            try {
-                if (!currentSessionId) {
-                    showNotification('Execute a Etapa 1 primeiro', 'warning');
-                    return;
-                }
-                
-                updateProgress(2, 'Iniciando síntese com IA...', 40);
-                updateStepCard('step2Card', 'running');
-                
-                const response = await fetch('/api/workflow/step2/start', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        session_id: currentSessionId
-                    })
+                // Remove active de todos os conteúdos
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
                 });
                 
-                const result = await response.json();
-                
-                if (result.success) {
-                    showNotification('Etapa 2 iniciada: IA analisando com busca ativa', 'success');
-                    monitorStep2Progress();
-                } else {
-                    throw new Error(result.error);
+                // Ativa o botão clicado
+                if (clickedButton) {
+                    clickedButton.classList.add('active');
                 }
                 
-            } catch (error) {
-                console.error('Erro na Etapa 2:', error);
-                showNotification(`Erro na Etapa 2: ${error.message}`, 'error');
-                updateStepCard('step2Card', 'error');
-            }
-        }
-        
-        async function startStep3() {
-            try {
-                if (!currentSessionId) {
-                    showNotification('Execute as etapas anteriores primeiro', 'warning');
-                    return;
-                }
-                
-                updateProgress(3, 'Gerando 16 módulos de análise...', 70);
-                updateStepCard('step3Card', 'running');
-                
-                const response = await fetch('/api/workflow/step3/start', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        session_id: currentSessionId
-                    })
-                });
-                
-                const result = await response.json();
-                
-                if (result.success) {
-                    showNotification('Etapa 3 iniciada: Gerando 16 módulos', 'success');
-                    monitorStep3Progress();
-                } else {
-                    throw new Error(result.error);
-                }
-                
-            } catch (error) {
-                console.error('Erro na Etapa 3:', error);
-                showNotification(`Erro na Etapa 3: ${error.message}`, 'error');
-                updateStepCard('step3Card', 'error');
-            }
-        }
-        
-        async function startCompleteWorkflow() {
-            try {
-                if (!validateForm()) {
-                    showNotification('Por favor, preencha pelo menos o segmento', 'warning');
-                    return;
-                }
-                
-                const formData = getFormData();
-                
-                showProgress(true);
-                updateProgress(0, 'Iniciando workflow completo...', 5);
-                
-                // Desabilita botão
-                const btn = document.getElementById('startCompleteWorkflowBtn');
-                btn.disabled = true;
-                btn.querySelector('.loading-spinner').style.display = 'inline-block';
-                
-                const response = await fetch('/api/workflow/complete', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(formData)
-                });
-                
-                const result = await response.json();
-                
-                if (result.success) {
-                    currentSessionId = result.session_id;
-                    showNotification('Workflow completo iniciado com sucesso!', 'success');
-                    
-                    // Monitora progresso completo
-                    monitorCompleteWorkflowProgress();
-                } else {
-                    throw new Error(result.error);
-                }
-                
-            } catch (error) {
-                console.error('Erro no workflow completo:', error);
-                showNotification(`Erro no workflow: ${error.message}`, 'error');
-                
-                // Reabilita botão
-                const btn = document.getElementById('startCompleteWorkflowBtn');
-                btn.disabled = false;
-                btn.querySelector('.loading-spinner').style.display = 'none';
-                
-                showProgress(false);
-            }
-        }
-        
-        async function monitorStep1Progress() {
-            const checkProgress = async () => {
-                try {
-                    const response = await fetch(`/api/workflow/status/${currentSessionId}`);
-                    const status = await response.json();
-                    
-                    if (status.step_status?.step1 === 'completed') {
-                        updateProgress(1, 'Etapa 1 concluída: Dados coletados', 33);
-                        updateStepCard('step1Card', 'completed');
-                        updateStepIndicator(1, 'completed');
-                        
-                        // Habilita próxima etapa
-                        document.getElementById('step2Btn').disabled = false;
-                        
-                        showNotification('Etapa 1 concluída! Dados coletados com sucesso.', 'success');
-                        return;
-                    }
-                    
-                    // Continua monitorando
-                    setTimeout(checkProgress, 3000);
-                    
-                } catch (error) {
-                    console.error('Erro no monitoramento:', error);
-                    setTimeout(checkProgress, 5000);
-                }
-            };
-            
-            checkProgress();
-        }
-        
-        async function monitorStep2Progress() {
-            const checkProgress = async () => {
-                try {
-                    const response = await fetch(`/api/workflow/status/${currentSessionId}`);
-                    const status = await response.json();
-                    
-                    if (status.step_status?.step2 === 'completed') {
-                        updateProgress(2, 'Etapa 2 concluída: Síntese realizada', 66);
-                        updateStepCard('step2Card', 'completed');
-                        updateStepIndicator(2, 'completed');
-                        
-                        // Habilita próxima etapa
-                        document.getElementById('step3Btn').disabled = false;
-                        
-                        showNotification('Etapa 2 concluída! Síntese com IA realizada.', 'success');
-                        return;
-                    }
-                    
-                    setTimeout(checkProgress, 3000);
-                    
-                } catch (error) {
-                    console.error('Erro no monitoramento:', error);
-                    setTimeout(checkProgress, 5000);
-                }
-            };
-            
-            checkProgress();
-        }
-        
-        async function monitorStep3Progress() {
-            const checkProgress = async () => {
-                try {
-                    const response = await fetch(`/api/workflow/status/${currentSessionId}`);
-                    const status = await response.json();
-                    
-                    if (status.step_status?.step3 === 'completed') {
-                        updateProgress(3, 'Workflow concluído: 16 módulos gerados', 100);
-                        updateStepCard('step3Card', 'completed');
-                        updateStepIndicator(3, 'completed');
-                        
-                        showNotification('Workflow concluído! 16 módulos gerados com sucesso.', 'success');
-                        showResults();
-                        return;
-                    }
-                    
-                    setTimeout(checkProgress, 3000);
-                    
-                } catch (error) {
-                    console.error('Erro no monitoramento:', error);
-                    setTimeout(checkProgress, 5000);
-                }
-            };
-            
-            checkProgress();
-        }
-        
-        async function monitorCompleteWorkflowProgress() {
-            const checkProgress = async () => {
-                try {
-                    const response = await fetch(`/api/workflow/status/${currentSessionId}`);
-                    const status = await response.json();
-                    
-                    // Atualiza progresso baseado nas etapas
-                    let progress = 0;
-                    let currentStepText = 'Iniciando...';
-                    
-                    if (status.step_status?.step1 === 'completed') {
-                        progress = 33;
-                        currentStepText = 'Etapa 1 concluída - Dados coletados';
-                        updateStepCard('step1Card', 'completed');
-                        updateStepIndicator(1, 'completed');
-                    }
-                    
-                    if (status.step_status?.step2 === 'completed') {
-                        progress = 66;
-                        currentStepText = 'Etapa 2 concluída - Síntese realizada';
-                        updateStepCard('step2Card', 'completed');
-                        updateStepIndicator(2, 'completed');
-                    }
-                    
-                    if (status.step_status?.step3 === 'completed') {
-                        progress = 100;
-                        currentStepText = 'Workflow concluído - 16 módulos gerados';
-                        updateStepCard('step3Card', 'completed');
-                        updateStepIndicator(3, 'completed');
-                        
-                        showNotification('Workflow completo concluído com sucesso!', 'success');
-                        showResults();
-                        
-                        // Reabilita botão
-                        const btn = document.getElementById('startCompleteWorkflowBtn');
-                        btn.disabled = false;
-                        btn.querySelector('.loading-spinner').style.display = 'none';
-                        
-                        return;
-                    }
-                    
-                    updateProgress(status.current_step || 0, currentStepText, progress);
-                    
-                    // Continua monitorando
-                    setTimeout(checkProgress, 3000);
-                    
-                } catch (error) {
-                    console.error('Erro no monitoramento completo:', error);
-                    setTimeout(checkProgress, 5000);
-                }
-            };
-            
-            checkProgress();
-        }
-        
-        function updateProgress(step, message, percentage) {
-            document.getElementById('progressTitle').innerHTML = `<i class="fas fa-cogs fa-spin"></i> ${message}`;
-            document.getElementById('progressStatus').textContent = message;
-            document.getElementById('progressPercentage').textContent = `${percentage}%`;
-            document.getElementById('progressBar').style.width = `${percentage}%`;
-            
-            // Atualiza indicadores
-            updateStepIndicator(step, step > 0 ? 'active' : 'pending');
-        }
-        
-        function updateStepCard(cardId, status) {
-            const card = document.getElementById(cardId);
-            if (card) {
-                card.className = `step-card ${status}`;
-            }
-        }
-        
-        function updateStepIndicator(step, status) {
-            for (let i = 1; i <= 3; i++) {
-                const indicator = document.getElementById(`indicator${i}`);
-                if (indicator) {
-                    indicator.className = 'step-indicator';
-                    
-                    if (i < step) {
-                        indicator.classList.add('completed');
-                    } else if (i === step) {
-                        indicator.classList.add(status);
-                    }
-                }
-            }
-        }
-        
-        function showProgress(show) {
-            const section = document.getElementById('progressSection');
-            if (section) {
-                section.style.display = show ? 'block' : 'none';
-            }
-        }
-        
-        async function showResults() {
-            try {
-                const response = await fetch(`/api/workflow/results/${currentSessionId}`);
-                const results = await response.json();
-                
-                // Mostra seção de resultados
-                document.getElementById('resultsSection').style.display = 'block';
-                document.getElementById('downloadBtn').style.display = 'inline-flex';
-                
-                // Popula visão geral
-                populateOverview(results);
-                
-                // Popula módulos
-                populateModules(results);
-                
-                // Popula screenshots
-                populateScreenshots(results);
-                
-                // Popula dados
-                populateData(results);
-                
-            } catch (error) {
-                console.error('Erro ao carregar resultados:', error);
-                showNotification('Erro ao carregar resultados', 'error');
-            }
-        }
-        
-        function populateOverview(results) {
-            const content = document.getElementById('overviewContent');
-            content.innerHTML = `
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-value">${results.modules_generated || 0}</div>
-                        <div class="stat-label">Módulos Gerados</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value">${results.screenshots_captured || 0}</div>
-                        <div class="stat-label">Screenshots</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value">${results.available_files?.length || 0}</div>
-                        <div class="stat-label">Arquivos Gerados</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value">${results.final_report_available ? 'SIM' : 'NÃO'}</div>
-                        <div class="stat-label">Relatório Final</div>
-                    </div>
-                </div>
-                
-                ${results.final_report_available ? `
-                    <div class="alert alert-success">
-                        <i class="fas fa-check-circle"></i>
-                        <div>
-                            <strong>Relatório Final Disponível!</strong><br>
-                            Análise completa com 16 módulos especializados gerada com sucesso.
-                        </div>
-                    </div>
-                ` : ''}
-            `;
-        }
-        
-        function populateModules(results) {
-            const content = document.getElementById('modulesContent');
-            const modules = results.modules_list || [];
-            
-            if (modules.length === 0) {
-                content.innerHTML = '<p>Nenhum módulo gerado ainda.</p>';
-                return;
-            }
-            
-            const modulesList = modules.map((module, index) => `
-                <div class="alert alert-success">
-                    <i class="fas fa-file-alt"></i>
-                    <div>
-                        <strong>${module.replace('.md', '').replace('_', ' ').toUpperCase()}</strong><br>
-                        <small>Módulo ${index + 1}/16 - Gerado com sucesso</small>
-                    </div>
-                </div>
-            `).join('');
-            
-            content.innerHTML = `
-                <h4>Módulos Gerados (${modules.length}/16)</h4>
-                ${modulesList}
-            `;
-        }
-        
-        function populateScreenshots(results) {
-            const content = document.getElementById('screenshotsContent');
-            const screenshots = results.screenshots_list || [];
-            
-            if (screenshots.length === 0) {
-                content.innerHTML = '<p>Nenhum screenshot capturado.</p>';
-                return;
-            }
-            
-            const screenshotsList = screenshots.map((screenshot, index) => `
-                <div class="alert alert-info">
-                    <i class="fas fa-image"></i>
-                    <div>
-                        <strong>Screenshot ${index + 1}</strong><br>
-                        <small>${screenshot}</small>
-                    </div>
-                </div>
-            `).join('');
-            
-            content.innerHTML = `
-                <h4>Screenshots Capturados (${screenshots.length})</h4>
-                <p>Evidências visuais do conteúdo viral identificado durante a busca.</p>
-                ${screenshotsList}
-            `;
-        }
-        
-        function populateData(results) {
-            const content = document.getElementById('dataContent');
-            const files = results.available_files || [];
-            
-            const filesList = files.map(file => `
-                <div class="alert alert-secondary">
-                    <i class="fas fa-file"></i>
-                    <div>
-                        <strong>${file.name}</strong><br>
-                        <small>Tipo: ${file.type.toUpperCase()} • Tamanho: ${formatFileSize(file.size)}</small>
-                    </div>
-                </div>
-            `).join('');
-            
-            content.innerHTML = `
-                <h4>Arquivos Gerados (${files.length})</h4>
-                ${filesList}
-            `;
-        }
-        
-        function switchTab(tabName, element) {
-            // Remove active de todos os botões
-            document.querySelectorAll('.tab-button').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            
-            // Remove active de todos os conteúdos
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.remove('active');
-            });
-            
-            // Ativa o botão clicado
-            if (element) {
-                element.classList.add('active');
-            } else {
-                // Fallback se o elemento não for passado (ex: chamada programática)
-                const targetButton = document.querySelector(`.tab-button[onclick*="'${tabName}'"]`);
-                if (targetButton) {
-                    targetButton.classList.add('active');
-                }
-            }
-            
-            // Ativa o conteúdo da aba
-            document.getElementById(`${tabName}-tab`).classList.add('active');
-        }
-        
-        // Funções de controle de progresso
-        async function pauseExecution() {
-            if (!currentSessionId) {
-                showNotification('Nenhuma execução ativa', 'warning');
-                return;
-            }
-            
-            try {
-                const response = await fetch('/api/progress/pause', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ session_id: currentSessionId })
-                });
-                
-                const result = await response.json();
-                
-                if (result.success) {
-                    showNotification('Execução pausada', 'success');
-                    updateControlButtons('paused');
-                } else {
-                    showNotification(result.error, 'error');
+                // Ativa o conteúdo correspondente
+                const tabContent = document.getElementById(`${tabName}Tab`);
+                if (tabContent) {
+                    tabContent.classList.add('active');
                 }
             } catch (error) {
-                console.error('Erro ao pausar:', error);
-                showNotification('Erro ao pausar execução', 'error');
+                console.error('Erro ao trocar aba:', error);
             }
         }
         
-        async function resumeExecution() {
-            if (!currentSessionId) {
-                showNotification('Nenhuma execução ativa', 'warning');
-                return;
-            }
-            
-            try {
-                const response = await fetch('/api/progress/resume', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ session_id: currentSessionId })
-                });
-                
-                const result = await response.json();
-                
-                if (result.success) {
-                    showNotification('Execução resumida', 'success');
-                    updateControlButtons('running');
-                } else {
-                    showNotification(result.error, 'error');
-                }
-            } catch (error) {
-                console.error('Erro ao resumir:', error);
-                showNotification('Erro ao resumir execução', 'error');
-            }
+        // Inicialização da interface
+        function initializeInterface() {
+            generateNewSession();
+            updateControlButtons();
+            loadSavedProgress();
         }
         
-        async function saveProgress() {
-            if (!currentSessionId) {
-                showNotification('Nenhuma execução ativa', 'warning');
-                return;
-            }
-            
-            try {
-                const response = await fetch('/api/progress/save', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ 
-                        session_id: currentSessionId,
-                        current_step: 'manual_save',
-                        step_index: currentStep || 0,
-                        state_data: { saved_at: new Date().toISOString() }
-                    })
-                });
-                
-                const result = await response.json();
-                
-                if (result.success) {
-                    showNotification('Progresso salvo', 'success');
-                    loadCheckpoints();
-                } else {
-                    showNotification(result.error, 'error');
-                }
-            } catch (error) {
-                console.error('Erro ao salvar:', error);
-                showNotification('Erro ao salvar progresso', 'error');
-            }
+        // Gerar nova sessão
+        function generateNewSession() {
+            const timestamp = Date.now();
+            const randomId = Math.random().toString(36).substr(2, 8);
+            currentSession = `session_${timestamp}_${randomId}`;
+            document.getElementById('currentSessionId').textContent = currentSession;
+            console.log('Nova sessão gerada:', currentSession);
         }
         
-        async function stopExecution() {
-            if (!currentSessionId) {
-                showNotification('Nenhuma execução ativa', 'warning');
-                return;
-            }
-            
-            if (confirm('Tem certeza que deseja parar a execução?')) {
-                try {
-                    // Implementar parada da execução
-                    currentSessionId = null;
-                    updateControlButtons('stopped');
-                    showNotification('Execução interrompida', 'info');
-                } catch (error) {
-                    console.error('Erro ao parar:', error);
-                    showNotification('Erro ao parar execução', 'error');
-                }
-            }
-        }
-        
-        function updateControlButtons(state) {
+        // Controle de botões baseado no estado
+        function updateControlButtons() {
+            const startBtn = document.getElementById('startBtn');
             const pauseBtn = document.getElementById('pauseBtn');
-            const resumeBtn = document.getElementById('resumeBtn');
             const saveBtn = document.getElementById('saveBtn');
+            const continueBtn = document.getElementById('continueBtn');
             const stopBtn = document.getElementById('stopBtn');
             
-            // Reset all buttons
-            [pauseBtn, resumeBtn, saveBtn, stopBtn].forEach(btn => {
-                btn.disabled = true;
-            });
-            
-            switch (state) {
+            switch (analysisState) {
+                case 'idle':
+                    startBtn.disabled = false;
+                    pauseBtn.disabled = true;
+                    saveBtn.disabled = true;
+                    continueBtn.disabled = savedProgress ? false : true;
+                    stopBtn.disabled = true;
+                    break;
                 case 'running':
+                    startBtn.disabled = true;
                     pauseBtn.disabled = false;
                     saveBtn.disabled = false;
+                    continueBtn.disabled = true;
                     stopBtn.disabled = false;
                     break;
                 case 'paused':
-                    resumeBtn.disabled = false;
+                    startBtn.disabled = true;
+                    pauseBtn.disabled = true;
                     saveBtn.disabled = false;
+                    continueBtn.disabled = false;
                     stopBtn.disabled = false;
                     break;
-                case 'stopped':
-                    // Todos ficam desabilitados
+                case 'completed':
+                    startBtn.disabled = false;
+                    pauseBtn.disabled = true;
+                    saveBtn.disabled = true;
+                    continueBtn.disabled = true;
+                    stopBtn.disabled = true;
+                    break;
+                case 'error':
+                    startBtn.disabled = false;
+                    pauseBtn.disabled = true;
+                    saveBtn.disabled = true;
+                    continueBtn.disabled = savedProgress ? false : true;
+                    stopBtn.disabled = true;
                     break;
             }
         }
         
-        // Funções de gerenciamento de APIs
-        async function loadApiStatus() {
+        // Iniciar análise
+        async function startAnalysis() {
             try {
-                const response = await fetch('/api/apis/status');
-                const result = await response.json();
-                
-                if (result.success) {
-                    displayApiStatus(result.status);
+                const formData = getFormData();
+                if (!validateFormData(formData)) {
+                    alert('Por favor, preencha todos os campos obrigatórios.');
+                    return;
                 }
+                
+                analysisState = 'running';
+                currentStep = 1;
+                updateControlButtons();
+                updateProgress(0, 'Iniciando análise...');
+                
+                // Inicia o monitoramento de progresso
+                startProgressMonitoring();
+                
+                // Chama a API para iniciar a análise
+                const response = await fetch('/api/workflow/start', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        session_id: currentSession,
+                        ...formData
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Erro na API: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                console.log('Análise iniciada:', result);
+                
             } catch (error) {
-                console.error('Erro ao carregar status das APIs:', error);
+                console.error('Erro ao iniciar análise:', error);
+                analysisState = 'error';
+                updateControlButtons();
+                updateProgress(0, 'Erro ao iniciar análise');
+                alert('Erro ao iniciar análise: ' + error.message);
             }
         }
         
-        function displayApiStatus(apiStatus) {
-            const apiGrid = document.getElementById('apiGrid');
-            apiGrid.innerHTML = '';
+        // Pausar análise
+        async function pauseAnalysis() {
+            try {
+                analysisState = 'paused';
+                updateControlButtons();
+                stopProgressMonitoring();
+                
+                const response = await fetch('/api/workflow/pause', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        session_id: currentSession
+                    })
+                });
+                
+                if (response.ok) {
+                    updateProgress(null, 'Análise pausada');
+                    console.log('Análise pausada');
+                } else {
+                    throw new Error('Erro ao pausar análise');
+                }
+                
+            } catch (error) {
+                console.error('Erro ao pausar análise:', error);
+                alert('Erro ao pausar análise: ' + error.message);
+            }
+        }
+        
+        // Salvar progresso
+        async function saveProgress() {
+            try {
+                const response = await fetch('/api/workflow/save', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        session_id: currentSession,
+                        current_step: currentStep,
+                        form_data: getFormData()
+                    })
+                });
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    savedProgress = result;
+                    localStorage.setItem('savedProgress', JSON.stringify(savedProgress));
+                    updateControlButtons();
+                    alert('Progresso salvo com sucesso!');
+                    console.log('Progresso salvo:', result);
+                } else {
+                    throw new Error('Erro ao salvar progresso');
+                }
+                
+            } catch (error) {
+                console.error('Erro ao salvar progresso:', error);
+                alert('Erro ao salvar progresso: ' + error.message);
+            }
+        }
+        
+        // Continuar análise
+        async function continueAnalysis() {
+            try {
+                if (!savedProgress) {
+                    alert('Nenhum progresso salvo encontrado.');
+                    return;
+                }
+                
+                analysisState = 'running';
+                updateControlButtons();
+                startProgressMonitoring();
+                
+                const response = await fetch('/api/workflow/continue', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        session_id: currentSession,
+                        saved_progress: savedProgress
+                    })
+                });
+                
+                if (response.ok) {
+                    updateProgress(null, 'Continuando análise...');
+                    console.log('Análise continuada');
+                } else {
+                    throw new Error('Erro ao continuar análise');
+                }
+                
+            } catch (error) {
+                console.error('Erro ao continuar análise:', error);
+                analysisState = 'error';
+                updateControlButtons();
+                alert('Erro ao continuar análise: ' + error.message);
+            }
+        }
+        
+        // Parar análise
+        async function stopAnalysis() {
+            try {
+                const response = await fetch('/api/workflow/stop', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        session_id: currentSession
+                    })
+                });
+                
+                analysisState = 'idle';
+                currentStep = 0;
+                updateControlButtons();
+                stopProgressMonitoring();
+                updateProgress(0, 'Análise interrompida');
+                resetStepStatus();
+                
+                console.log('Análise interrompida');
+                
+            } catch (error) {
+                console.error('Erro ao parar análise:', error);
+                alert('Erro ao parar análise: ' + error.message);
+            }
+        }
+        
+        // Monitoramento de progresso
+        function startProgressMonitoring() {
+            if (progressInterval) {
+                clearInterval(progressInterval);
+            }
             
-            const services = ['openai', 'gemini', 'groq', 'jina', 'exa', 'serper', 'firecrawl', 'supadata'];
+            progressInterval = setInterval(async () => {
+                try {
+                    const response = await fetch(`/api/workflow/status/${currentSession}`);
+                    if (response.ok) {
+                        const status = await response.json();
+                        updateProgressFromStatus(status);
+                    }
+                } catch (error) {
+                    console.error('Erro ao verificar status:', error);
+                }
+            }, 2000);
+        }
+        
+        function stopProgressMonitoring() {
+            if (progressInterval) {
+                clearInterval(progressInterval);
+                progressInterval = null;
+            }
+        }
+        
+        // Atualizar progresso baseado no status da API
+        function updateProgressFromStatus(status) {
+            if (!status) return;
             
-            services.forEach(service => {
-                const serviceData = apiStatus[service] || { apis: [] };
-                const card = createApiServiceCard(service, serviceData);
-                apiGrid.appendChild(card);
+            let progress = 0;
+            let message = 'Processando...';
+            
+            // Calcula progresso baseado nas etapas
+            if (status.step1_completed) progress += 33;
+            if (status.step2_completed) progress += 33;
+            if (status.step3_completed) progress += 34;
+            
+            // Atualiza status das etapas
+            updateStepStatus(1, status.step1_status, status.step1_details);
+            updateStepStatus(2, status.step2_status, status.step2_details);
+            updateStepStatus(3, status.step3_status, status.step3_details);
+            
+            // Verifica se completou
+            if (progress >= 100) {
+                analysisState = 'completed';
+                updateControlButtons();
+                stopProgressMonitoring();
+                message = 'Análise concluída!';
+                showResults(status.results);
+            } else if (status.error) {
+                analysisState = 'error';
+                updateControlButtons();
+                stopProgressMonitoring();
+                message = 'Erro na análise: ' + status.error;
+            }
+            
+            updateProgress(progress, message);
+            
+            // Atualiza log de atividade
+            if (status.current_activity) {
+                updateActivityLog(status.current_activity);
+            }
+        }
+        
+        // Atualizar barra de progresso
+        function updateProgress(percentage, message) {
+            if (percentage !== null) {
+                document.getElementById('progressFill').style.width = percentage + '%';
+            }
+            if (message) {
+                document.getElementById('progressText').textContent = message;
+            }
+        }
+        
+        // Atualizar status das etapas
+        function updateStepStatus(step, status, details) {
+            const statusIcon = document.getElementById(`step${step}Status`);
+            const statusDetails = document.getElementById(`step${step}Details`);
+            
+            if (!statusIcon || !statusDetails) return;
+            
+            // Remove classes anteriores
+            statusIcon.className = 'status-icon';
+            
+            switch (status) {
+                case 'pending':
+                    statusIcon.classList.add('pending');
+                    statusIcon.innerHTML = '<i class="fas fa-clock"></i>';
+                    break;
+                case 'running':
+                    statusIcon.classList.add('running');
+                    statusIcon.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                    break;
+                case 'completed':
+                    statusIcon.classList.add('completed');
+                    statusIcon.innerHTML = '<i class="fas fa-check"></i>';
+                    break;
+                case 'error':
+                    statusIcon.classList.add('error');
+                    statusIcon.innerHTML = '<i class="fas fa-times"></i>';
+                    break;
+            }
+            
+            statusDetails.textContent = details || 'Aguardando...';
+        }
+        
+        // Reset status das etapas
+        function resetStepStatus() {
+            for (let i = 1; i <= 3; i++) {
+                updateStepStatus(i, 'pending', 'Aguardando...');
+            }
+        }
+        
+        // Atualizar log de atividade
+        function updateActivityLog(activity) {
+            const activityContainer = document.getElementById('currentActivity');
+            const activityLog = document.getElementById('activityLog');
+            
+            if (activity && activity.length > 0) {
+                activityContainer.style.display = 'block';
+                activityLog.innerHTML = activity.map(item => 
+                    `<div class="activity-item">
+                        <small class="text-muted">${new Date(item.timestamp).toLocaleTimeString()}</small>
+                        <div>${item.message}</div>
+                    </div>`
+                ).join('');
+            } else {
+                activityContainer.style.display = 'none';
+            }
+        }
+        
+        // Obter dados do formulário
+        function getFormData() {
+            return {
+                segmento: document.getElementById('segmento').value,
+                produto: document.getElementById('produto').value,
+                preco: document.getElementById('preco').value,
+                publico: document.getElementById('publico').value,
+                contexto: document.getElementById('contexto').value
+            };
+        }
+        
+        // Validar dados do formulário
+        function validateFormData(data) {
+            return data.segmento && data.produto && data.preco && data.publico;
+        }
+        
+        // Carregar progresso salvo
+        function loadSavedProgress() {
+            const saved = localStorage.getItem('savedProgress');
+            if (saved) {
+                try {
+                    savedProgress = JSON.parse(saved);
+                    updateControlButtons();
+                } catch (error) {
+                    console.error('Erro ao carregar progresso salvo:', error);
+                }
+            }
+        }
+        
+        // Mostrar resultados
+        function showResults(results) {
+            const resultsContainer = document.getElementById('resultsContainer');
+            const downloadSection = document.getElementById('downloadSection');
+            
+            if (results) {
+                resultsContainer.innerHTML = `
+                    <h4>Análise Concluída</h4>
+                    <p>A análise foi concluída com sucesso. Você pode visualizar e baixar os resultados.</p>
+                    <div class="results-summary">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="metric-card">
+                                    <h5>Fontes Analisadas</h5>
+                                    <div class="metric-value">${results.sources_analyzed || 0}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="metric-card">
+                                    <h5>Insights Gerados</h5>
+                                    <div class="metric-value">${results.insights_generated || 0}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="metric-card">
+                                    <h5>Tempo de Análise</h5>
+                                    <div class="metric-value">${results.analysis_time || 'N/A'}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                downloadSection.style.display = 'block';
+            }
+        }
+        
+        // Download de relatórios
+        async function downloadReport(format) {
+            try {
+                const response = await fetch(`/api/workflow/download/${currentSession}/${format}`);
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `analise_${currentSession}.${format}`;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                } else {
+                    throw new Error('Erro ao baixar relatório');
+                }
+            } catch (error) {
+                console.error('Erro ao baixar relatório:', error);
+                alert('Erro ao baixar relatório: ' + error.message);
+            }
+        }
+        
+        // === FUNÇÕES DE API ===
+        
+        // Verificar status das APIs
+        async function checkApiStatus() {
+            try {
+                const response = await fetch('/api/apis/status');
+                if (response.ok) {
+                    const status = await response.json();
+                    updateApiStatus(status);
+                }
+            } catch (error) {
+                console.error('Erro ao verificar status das APIs:', error);
+            }
+        }
+        
+        // Atualizar status visual das APIs
+        function updateApiStatus(status) {
+            Object.keys(status).forEach(service => {
+                const statusElement = document.getElementById(`${service}Status`);
+                if (statusElement) {
+                    statusElement.className = `api-status ${status[service] ? 'active' : 'inactive'}`;
+                }
             });
         }
         
-        function createApiServiceCard(service, serviceData) {
-            const card = document.createElement('div');
-            card.className = 'api-service-card';
-            
-            const currentApi = serviceData.apis[serviceData.current_api_index] || {};
-            const statusClass = getStatusClass(currentApi.status);
-            
-            card.innerHTML = `
-                <div class="api-service-title">${service.toUpperCase()}</div>
-                
-                <div class="api-status">
-                    <div class="status-indicator ${statusClass}"></div>
-                    <span>${currentApi.status || 'Não configurado'}</span>
-                </div>
-                
-                <input type="password" class="api-key-input" 
-                       placeholder="Chave da API ${service.toUpperCase()}"
-                       id="${service}-key">
-                
-                <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
-                    <button class="btn btn-primary" style="flex: 1; font-size: 0.8rem;" 
-                            onclick="updateApiKey('${service}')">
-                        <i class="fas fa-save"></i> Salvar
-                    </button>
-                    <button class="btn btn-secondary" style="flex: 1; font-size: 0.8rem;" 
-                            onclick="rotateApi('${service}')">
-                        <i class="fas fa-sync"></i> Rotar
-                    </button>
-                </div>
-                
-                <div class="current-api-display" style="margin-top: 1rem;">
-                    <div class="api-rotation-status">API Atual:</div>
-                    <div class="current-api-name">${currentApi.name || 'Nenhuma'}</div>
-                </div>
-            `;
-            
-            return card;
-        }
-        
-        function getStatusClass(status) {
-            switch (status) {
-                case 'active': return 'status-active';
-                case 'error': return 'status-error';
-                case 'rate_limited': return 'status-rate-limited';
-                case 'offline': return 'status-offline';
-                default: return 'status-offline';
-            }
-        }
-        
-        async function updateApiKey(service) {
-            const keyInput = document.getElementById(`${service}-key`);
-            const apiKey = keyInput.value.trim();
+        // Testar chave de API individual
+        async function testApiKey(button) {
+            const input = button.parentElement.querySelector('.api-key-input');
+            const service = input.dataset.service;
+            const index = input.dataset.index;
+            const apiKey = input.value;
             
             if (!apiKey) {
-                showNotification('Digite uma chave de API válida', 'warning');
+                alert('Por favor, insira uma chave de API.');
                 return;
             }
             
+            button.disabled = true;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            
             try {
-                const response = await fetch('/api/apis/update', {
+                const response = await fetch('/api/apis/test', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
                     body: JSON.stringify({
                         service: service,
-                        api_name: `${service}_1`,
+                        index: parseInt(index),
                         api_key: apiKey
                     })
                 });
@@ -1809,319 +1344,109 @@
                 const result = await response.json();
                 
                 if (result.success) {
-                    showNotification(`Chave ${service.toUpperCase()} atualizada`, 'success');
-                    keyInput.value = '';
-                    loadApiStatus();
+                    button.innerHTML = '<i class="fas fa-check"></i>';
+                    button.className = 'btn btn-success btn-sm';
+                    input.style.borderColor = 'var(--success-color)';
                 } else {
-                    showNotification(result.error, 'error');
+                    button.innerHTML = '<i class="fas fa-times"></i>';
+                    button.className = 'btn btn-danger btn-sm';
+                    input.style.borderColor = 'var(--error-color)';
+                    alert('Erro ao testar API: ' + result.error);
                 }
+                
             } catch (error) {
-                console.error('Erro ao atualizar API:', error);
-                showNotification('Erro ao atualizar chave da API', 'error');
+                console.error('Erro ao testar API:', error);
+                button.innerHTML = '<i class="fas fa-times"></i>';
+                button.className = 'btn btn-danger btn-sm';
+                alert('Erro ao testar API: ' + error.message);
+            } finally {
+                button.disabled = false;
+                setTimeout(() => {
+                    button.innerHTML = '<i class="fas fa-check"></i>';
+                    button.className = 'btn btn-secondary btn-sm';
+                    input.style.borderColor = '';
+                }, 3000);
             }
         }
         
-        async function rotateApi(service) {
-            try {
-                const response = await fetch('/api/apis/rotate', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ service: service })
-                });
+        // Salvar configurações de API
+        async function saveApiConfigs() {
+            const configs = {};
+            
+            document.querySelectorAll('.api-key-input').forEach(input => {
+                const service = input.dataset.service;
+                const index = input.dataset.index;
+                const value = input.value;
                 
-                const result = await response.json();
-                
-                if (result.success) {
-                    showNotification(`API ${service.toUpperCase()} rotacionada`, 'success');
-                    loadApiStatus();
-                } else {
-                    showNotification(result.error, 'error');
+                if (value) {
+                    if (!configs[service]) {
+                        configs[service] = {};
+                    }
+                    configs[service][index] = value;
                 }
-            } catch (error) {
-                console.error('Erro ao rotar API:', error);
-                showNotification('Erro ao rotar API', 'error');
-            }
-        }
-        
-        async function refreshApiStatus() {
-            showNotification('Atualizando status das APIs...', 'info');
-            await loadApiStatus();
-            showNotification('Status das APIs atualizado', 'success');
-        }
-        
-        async function resetApiErrors() {
-            try {
-                const response = await fetch('/api/apis/reset-errors', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' }
-                });
-                
-                const result = await response.json();
-                
-                if (result.success) {
-                    showNotification('Erros das APIs resetados', 'success');
-                    loadApiStatus();
-                } else {
-                    showNotification(result.error, 'error');
-                }
-            } catch (error) {
-                console.error('Erro ao resetar erros:', error);
-                showNotification('Erro ao resetar erros das APIs', 'error');
-            }
-        }
-        
-        // Funções de progresso
-        async function loadProgressInfo() {
-            if (!currentSessionId) return;
-            
-            try {
-                const response = await fetch(`/api/progress/status/${currentSessionId}`);
-                const result = await response.json();
-                
-                if (result.success) {
-                    displayProgressInfo(result.progress);
-                }
-            } catch (error) {
-                console.error('Erro ao carregar progresso:', error);
-            }
-        }
-        
-        function displayProgressInfo(progress) {
-            const progressInfo = document.getElementById('progressInfo');
-            const sessionTitle = document.getElementById('currentSessionTitle');
-            const progressPercentage = document.getElementById('currentProgressPercentage');
-            const progressBar = document.getElementById('currentProgressBar');
-            const progressStatus = document.getElementById('currentProgressStatus');
-            
-            progressInfo.style.display = 'block';
-            sessionTitle.textContent = `Sessão: ${progress.session_id}`;
-            progressPercentage.textContent = `${Math.round(progress.progress_percentage)}%`;
-            progressBar.style.width = `${progress.progress_percentage}%`;
-            progressStatus.textContent = `Etapa ${progress.current_step}/${progress.total_steps} - ${progress.state}`;
-        }
-        
-        async function loadCheckpoints() {
-            if (!currentSessionId) return;
-            
-            try {
-                const response = await fetch(`/api/progress/checkpoints/${currentSessionId}`);
-                const result = await response.json();
-                
-                if (result.success) {
-                    displayCheckpoints(result.checkpoints);
-                }
-            } catch (error) {
-                console.error('Erro ao carregar checkpoints:', error);
-            }
-        }
-        
-        function displayCheckpoints(checkpoints) {
-            const checkpointsList = document.getElementById('checkpointsList');
-            
-            if (checkpoints.length === 0) {
-                checkpointsList.innerHTML = '<p>Nenhum checkpoint salvo ainda.</p>';
-                return;
-            }
-            
-            const checkpointsHtml = checkpoints.map(checkpoint => `
-                <div class="alert alert-info">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <div>
-                            <strong>${checkpoint.current_step}</strong><br>
-                            <small>${new Date(checkpoint.timestamp * 1000).toLocaleString()}</small><br>
-                            <small>Progresso: ${Math.round(checkpoint.progress_percentage)}%</small>
-                        </div>
-                        <button class="btn btn-primary" onclick="continueFromCheckpoint('${checkpoint.checkpoint_id}')">
-                            <i class="fas fa-play"></i> Continuar
-                        </button>
-                    </div>
-                </div>
-            `).join('');
-            
-            checkpointsList.innerHTML = `
-                <h5>Checkpoints Salvos (${checkpoints.length})</h5>
-                ${checkpointsHtml}
-            `;
-        }
-        
-        async function continueFromCheckpoint(checkpointId) {
-            try {
-                const response = await fetch('/api/progress/continue', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ checkpoint_id: checkpointId })
-                });
-                
-                const result = await response.json();
-                
-                if (result.success) {
-                    currentSessionId = result.session_id;
-                    showNotification('Execução continuada do checkpoint', 'success');
-                    updateControlButtons('running');
-                    loadProgressInfo();
-                } else {
-                    showNotification(result.error, 'error');
-                }
-            } catch (error) {
-                console.error('Erro ao continuar do checkpoint:', error);
-                showNotification('Erro ao continuar do checkpoint', 'error');
-            }
-        }
-        
-        document.addEventListener("DOMContentLoaded", function() {
-            document.querySelectorAll(".tab-button").forEach(button => {
-                button.addEventListener("click", () => {
-                    const tabName = button.dataset.tab;
-                    switchTab(tabName, button);
-                });
-            });
-        });
-
-        function switchTab(tabName, clickedButton) {
-            // Remove active de todos os botões
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
             });
             
-            // Remove active de todos os conteúdos
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.remove('active');
-            });
-            
-            // Ativa o selecionado
-            event.target.classList.add('active');
-            document.getElementById(`${tabName}Tab`).classList.add('active');
+            try {
+                const response = await fetch('/api/apis/save', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(configs)
+                });
+                
+                if (response.ok) {
+                    alert('Configurações salvas com sucesso!');
+                    localStorage.setItem('apiConfigs', JSON.stringify(configs));
+                    checkApiStatus();
+                } else {
+                    throw new Error('Erro ao salvar configurações');
+                }
+                
+            } catch (error) {
+                console.error('Erro ao salvar configurações:', error);
+                alert('Erro ao salvar configurações: ' + error.message);
+            }
         }
         
-        function getFormData() {
-            return {
-                segmento: document.getElementById('segmento').value,
-                produto: document.getElementById('produto').value,
-                preco: document.getElementById('preco').value,
-                objetivo_receita: document.getElementById('objetivo_receita').value,
-                publico: document.getElementById('publico').value,
-                contexto_adicional: document.getElementById('contexto_adicional').value
-            };
-        }
-        
-        function validateForm() {
-            const segmento = document.getElementById('segmento').value.trim();
-            return segmento.length > 0;
-        }
-        
-        function saveConfiguration() {
-            const config = getFormData();
-            localStorage.setItem('arqv30_config_v3', JSON.stringify(config));
-        }
-        
-        function loadSavedConfiguration() {
-            const saved = localStorage.getItem('arqv30_config_v3');
+        // Carregar configurações de API
+        function loadApiConfigs() {
+            const saved = localStorage.getItem('apiConfigs');
             if (saved) {
                 try {
-                    const config = JSON.parse(saved);
-                    Object.entries(config).forEach(([key, value]) => {
-                        const element = document.getElementById(key);
-                        if (element && value) {
-                            element.value = value;
-                        }
+                    const configs = JSON.parse(saved);
+                    
+                    Object.keys(configs).forEach(service => {
+                        Object.keys(configs[service]).forEach(index => {
+                            const input = document.querySelector(
+                                `.api-key-input[data-service="${service}"][data-index="${index}"]`
+                            );
+                            if (input) {
+                                input.value = configs[service][index];
+                            }
+                        });
                     });
+                    
                 } catch (error) {
-                    console.error('Erro ao carregar configuração:', error);
+                    console.error('Erro ao carregar configurações:', error);
                 }
             }
         }
         
-        function resetWorkflow() {
-            if (confirm('Tem certeza que deseja resetar o workflow?')) {
-                currentSessionId = null;
-                workflowState = { step: 0, status: 'idle', results: {} };
-                
-                // Reset UI
-                showProgress(false);
-                document.getElementById('resultsSection').style.display = 'none';
-                document.getElementById('downloadBtn').style.display = 'none';
-                
-                // Reset step cards
-                ['step1Card', 'step2Card', 'step3Card'].forEach(cardId => {
-                    updateStepCard(cardId, '');
-                });
-                
-                // Reset buttons
-                document.getElementById('step2Btn').disabled = true;
-                document.getElementById('step3Btn').disabled = true;
-                document.getElementById('startCompleteWorkflowBtn').disabled = false;
-                
-                showNotification('Workflow resetado', 'info');
+        // Testar todas as APIs
+        async function testAllApis() {
+            const buttons = document.querySelectorAll('.api-service-card button');
+            for (const button of buttons) {
+                if (button.onclick && button.onclick.toString().includes('testApiKey')) {
+                    await testApiKey(button);
+                    await new Promise(resolve => setTimeout(resolve, 1000)); // Delay entre testes
+                }
             }
         }
         
-        async function downloadResults() {
-            if (!currentSessionId) {
-                showNotification('Nenhuma sessão ativa para download', 'warning');
-                return;
-            }
-            
-            try {
-                window.open(`/api/workflow/download/${currentSessionId}/final_report`, '_blank');
-                showNotification('Download iniciado', 'success');
-            } catch (error) {
-                showNotification('Erro no download', 'error');
-            }
-        }
+        // Atualização automática do status das APIs
+        setInterval(checkApiStatus, 30000); // Verifica a cada 30 segundos
         
-        function showNotification(message, type = 'info', duration = 5000) {
-            const container = document.getElementById('notificationContainer');
-            
-            const notification = document.createElement('div');
-            notification.className = `notification notification-${type}`;
-            
-            const icons = {
-                success: 'fas fa-check-circle',
-                warning: 'fas fa-exclamation-triangle',
-                error: 'fas fa-exclamation-circle',
-                info: 'fas fa-info-circle'
-            };
-            
-            notification.innerHTML = `
-                <i class="${icons[type]}"></i>
-                <span>${message}</span>
-            `;
-            
-            container.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.remove();
-            }, duration);
-        }
-        
-        function formatFileSize(bytes) {
-            if (bytes === 0) return '0 Bytes';
-            const k = 1024;
-            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-            const i = Math.floor(Math.log(bytes) / Math.log(k));
-            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-        }
-        
-        // Inicialização das novas funcionalidades
-        document.addEventListener('DOMContentLoaded', function() {
-            // Carrega configuração salva
-            loadSavedConfiguration();
-            
-            // Carrega status das APIs
-            loadApiStatus();
-            
-            // Atualiza status das APIs a cada 30 segundos
-            setInterval(loadApiStatus, 30000);
-            
-            // Carrega informações de progresso se há sessão ativa
-            if (currentSessionId) {
-                loadProgressInfo();
-                loadCheckpoints();
-                
-                // Atualiza progresso a cada 5 segundos
-                setInterval(loadProgressInfo, 5000);
-            }
-        });
     </script>
 </body>
 </html>
